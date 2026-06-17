@@ -12,7 +12,7 @@
 <version>
     <application>indexingPageManager</application>
     <type>plugins.generic</type>
-    <release>0.1.14</release>
+    <release>0.1.15</release>
     <date>2026-06-16</date>
     <lazy-load>1</lazy-load>
     <class>IndexingPageManagerPlugin</class>

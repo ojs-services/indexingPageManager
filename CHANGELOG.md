@@ -3,6 +3,15 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 0.1.15 — 2026-06-16
+
+- **Fix: card captions were invisible in a theme's dark mode.** The index cards
+  are a fixed light tile (so logos stay legible), but the name/description text
+  used `color: inherit`, which picks up the theme's text colour — light in dark
+  mode — making it white-on-white and unreadable. Captions now use explicit dark
+  colours (`#1f2937` / `#4b5563`) that stay readable on the light tile in both
+  light and dark mode, on any theme. Verified against a dark-mode journal.
+
 ## 0.1.14 — 2026-06-16
 
 - **Admin forms now show real language names.** The per-locale tabs/badges on the
