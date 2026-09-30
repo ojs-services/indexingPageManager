@@ -12,8 +12,8 @@
 <version>
     <application>indexingPageManager</application>
     <type>plugins.generic</type>
-    <release>0.1.15</release>
-    <date>2026-06-16</date>
+    <release>1.0.0.0</release>
+    <date>2026-09-30</date>
     <lazy-load>1</lazy-load>
     <class>IndexingPageManagerPlugin</class>
 </version>

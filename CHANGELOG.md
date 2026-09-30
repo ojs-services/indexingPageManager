@@ -3,6 +3,13 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 1.0.0.0 — 2026-09-30 (OJS 3.3)
+
+Stable release of the OJS 3.3 line — no functional change from 0.1.15. The
+version marks the OJS 3.3 codebase as production-stable and adopts the shared
+four-part version scheme, now that the OJS 3.4 / 3.5 codebase is maintained
+separately as the 2.x line.
+
 ## 0.1.15 — 2026-06-16
 
 - **Fix: card captions were invisible in a theme's dark mode.** The index cards
