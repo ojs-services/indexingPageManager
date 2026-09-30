@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IpmSectionDAO.inc.php
+ * @file classes/IpmSectionDAO.php
  *
  * Indexing Page Manager — Section DAO.
  *
@@ -9,8 +9,10 @@
  * ipm_section_settings table.
  */
 
-import('lib.pkp.classes.db.DAO');
-import('plugins.generic.indexingPageManager.classes.IpmSection');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use PKP\core\Core;
+use PKP\db\DAO;
 
 class IpmSectionDAO extends DAO
 {
@@ -125,12 +127,12 @@ class IpmSectionDAO extends DAO
         return $this->update('DELETE FROM ipm_sections WHERE section_id = ?', [(int) $sectionId]);
     }
 
-    public function getInsertId()
+    public function getInsertId(): int
     {
-        return $this->_getInsertId('ipm_sections', 'section_id');
+        return parent::getInsertId();
     }
 
-    public function getLocaleFieldNames()
+    public function getLocaleFieldNames(): array
     {
         return ['displayName'];
     }

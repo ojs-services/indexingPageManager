@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IpmSection.inc.php
+ * @file classes/IpmSection.php
  *
  * Indexing Page Manager — Section data object.
  *
@@ -10,7 +10,9 @@
  * and never changes.
  */
 
-import('lib.pkp.classes.core.DataObject');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use PKP\core\DataObject;
 
 class IpmSection extends DataObject
 {

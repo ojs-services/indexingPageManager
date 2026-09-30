@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IndexingPageManagerAdminController.inc.php
+ * @file classes/IndexingPageManagerAdminController.php
  *
  * Indexing Page Manager — admin controller.
  *
@@ -10,12 +10,17 @@
  * The URL-based IndexingPageManagerManageHandler wraps these.
  */
 
-import('lib.pkp.classes.core.JSONMessage');
-import('lib.pkp.classes.security.Validation');
-import('plugins.generic.indexingPageManager.classes.IpmIndexDAO');
-import('plugins.generic.indexingPageManager.classes.IpmSectionDAO');
-import('plugins.generic.indexingPageManager.classes.IpmIndexSectionDAO');
-import('plugins.generic.indexingPageManager.classes.IpmLogoStore');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use APP\plugins\generic\indexingPageManager\IndexingPageManagerPlugin;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmIndexForm;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmSectionForm;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmSettingsForm;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmTemplateForm;
+use APP\template\TemplateManager;
+use PKP\core\JSONMessage;
+use PKP\core\PKPApplication;
+use PKP\db\DAORegistry;
 
 class IndexingPageManagerAdminController
 {
@@ -64,7 +69,7 @@ class IndexingPageManagerAdminController
 
         $slug = $this->plugin->getPageSlug($contextId);
         $previewUrl = $request->getDispatcher()->url(
-            $request, ROUTE_PAGE,
+            $request, PKPApplication::ROUTE_PAGE,
             $request->getContext() ? $request->getContext()->getPath() : null,
             'about', $slug
         );
@@ -80,7 +85,7 @@ class IndexingPageManagerAdminController
             'activeTemplate'   => $template,
             'activeColumns'    => $columns,
             'contextId'        => $contextId,
-            'csrfToken'        => $request->getSession()->getCSRFToken(),
+            'csrfToken'        => IpmCompat::csrfToken($request),
             'previewUrl'       => $previewUrl,
         ]);
 
@@ -96,7 +101,6 @@ class IndexingPageManagerAdminController
         $contextId = $this->_contextId($request);
         $indexId = (int) $request->getUserVar('indexId') ?: null;
 
-        $this->plugin->import('classes.form.IpmIndexForm');
         $form = new IpmIndexForm($this->plugin, $contextId, $indexId);
         $form->initData();
 
@@ -191,7 +195,7 @@ class IndexingPageManagerAdminController
         $tm->assign([
             'pluginName' => $this->plugin->getName(),
             'rows'       => $rows,
-            'csrfToken'  => $request->getSession()->getCSRFToken(),
+            'csrfToken'  => IpmCompat::csrfToken($request),
         ]);
 
         return new JSONMessage(true, $tm->fetch($this->plugin->getTemplateResource('admin/sectionList.tpl')));
@@ -202,7 +206,6 @@ class IndexingPageManagerAdminController
         $contextId = $this->_contextId($request);
         $sectionId = (int) $request->getUserVar('sectionId') ?: null;
 
-        $this->plugin->import('classes.form.IpmSectionForm');
         $form = new IpmSectionForm($this->plugin, $contextId, $sectionId);
         $form->initData();
 
@@ -273,7 +276,6 @@ class IndexingPageManagerAdminController
 
     public function templateSelect($request)
     {
-        $this->plugin->import('classes.form.IpmTemplateForm');
         $contextId = $this->_contextId($request);
         $form = new IpmTemplateForm($this->plugin, $contextId);
 
@@ -292,7 +294,6 @@ class IndexingPageManagerAdminController
 
     public function settings($request)
     {
-        $this->plugin->import('classes.form.IpmSettingsForm');
         $contextId = $this->_contextId($request);
         $form = new IpmSettingsForm($this->plugin, $contextId);
 
@@ -321,13 +322,13 @@ class IndexingPageManagerAdminController
     private function _assertPostAndCsrf($request)
     {
         if (!$request->isPost()) {
-            throw new Exception('POST required');
+            throw new \Exception('POST required');
         }
         $session = $request->getSession();
-        $expected = $session ? $session->getCSRFToken() : null;
+        $expected = $session ? IpmCompat::csrfToken($request) : null;
         $supplied = (string) $request->getUserVar('csrfToken');
         if (!$expected || !hash_equals($expected, $supplied)) {
-            throw new Exception('Invalid CSRF token');
+            throw new \Exception('Invalid CSRF token');
         }
     }
 }

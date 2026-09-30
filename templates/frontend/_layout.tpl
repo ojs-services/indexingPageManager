@@ -31,7 +31,7 @@
        .ipm-page-title class is only a hook for the de-dupe script below. *}
     <h1 class="ipm-page-title">{$ipmPageTitle|escape}</h1>
 
-    {if $ipmIntroText && $ipmIntroText|trim != $ipmPageTitle|trim}
+    {if $ipmIntroText && $ipmIntroText != $ipmPageTitle}
         <p class="ipm-page-intro">{$ipmIntroText|escape}</p>
     {/if}
 

@@ -1,6 +1,6 @@
 # Indexing Page Manager
 
-A **free** OJS 3.3 plugin that lets your journal display the databases, indexes and services it is listed in — Scopus, Web of Science, DOAJ, TR Dizin, PubMed, Crossref and more — as a clean, professional **logo gallery**.
+A **free** OJS 3.4 / 3.5 plugin that lets your journal display the databases, indexes and services it is listed in — Scopus, Web of Science, DOAJ, TR Dizin, PubMed, Crossref and more — as a clean, professional **logo gallery**.
 
 Everything is managed from your journal's admin panel. **No coding knowledge required.**
 
@@ -40,13 +40,13 @@ Everything is managed from your journal's admin panel. **No coding knowledge req
 - **Layout choices** — four display styles (logos only / logo + name / logo + name + description / logo + description) and 3, 4 or 5 columns.
 - **Fits your theme** — looks at home in any OJS theme, with a centred page title and a mobile-friendly layout.
 - **A ready public page** — e.g. `/about/databases`, which you can rename and add to your menu with one click using the built-in menu item.
-- **Bilingual** — ships with English and Turkish, and works on multilingual journals.
+- **Multilingual** — ships with English, Spanish, Turkish, Arabic and Russian, and works on multilingual journals.
 - **Search-engine friendly** — adds structured data so search engines understand where your journal is indexed.
 
 ## Requirements
 
-- OJS **3.3.0.x**
-- PHP **7.4 – 8.2**
+- OJS **3.4.x** or **3.5.x** (a separate 1.x build exists for OJS 3.3)
+- PHP **8.0 – 8.2** (8.2+ for OJS 3.5)
 - MySQL / MariaDB
 - Works on single- and multi-journal installations
 
@@ -64,7 +64,7 @@ Your public page is available at `/about/databases` (you can change the address)
 
 ## Works with every theme
 
-The plugin works on **any OJS 3.3 theme**. It was designed alongside our **Atlas** theme, where your index logos can also appear as a block on the journal homepage. See our themes: [ojs-services.com/ojs-themes](https://ojs-services.com/ojs-themes/)
+The plugin works on **any OJS 3.4 / 3.5 theme**. It was designed alongside our **Atlas** theme, where your index logos can also appear as a block on the journal homepage. See our themes: [ojs-services.com/ojs-themes](https://ojs-services.com/ojs-themes/)
 
 Theme authors can embed the gallery anywhere with the `{ipm_blocks}` template function.
 
@@ -82,7 +82,7 @@ Free and open-source under the **GNU GPL v2**.
 
 # Türkçe
 
-Derginizin yer aldığı dizin, veritabanı ve servisleri — Scopus, Web of Science, DOAJ, TR Dizin, PubMed, Crossref ve daha fazlası — şık ve profesyonel bir **logo galerisi** olarak gösteren **ücretsiz** OJS 3.3 eklentisi.
+Derginizin yer aldığı dizin, veritabanı ve servisleri — Scopus, Web of Science, DOAJ, TR Dizin, PubMed, Crossref ve daha fazlası — şık ve profesyonel bir **logo galerisi** olarak gösteren **ücretsiz** OJS 3.4 / 3.5 eklentisi.
 
 Her şey derginizin yönetim panelinden yönetilir. **Kod bilgisi gerektirmez.**
 
@@ -96,13 +96,13 @@ Her şey derginizin yönetim panelinden yönetilir. **Kod bilgisi gerektirmez.**
 - **Görünüm seçenekleri** — dört şablon (yalnız logo / logo + ad / logo + ad + açıklama / logo + açıklama) ve 3, 4 veya 5 sütun.
 - **Temanıza uyum** — her OJS temasında doğal durur; başlık ortalanır, mobil uyumludur.
 - **Hazır bir genel sayfa** — örn. `/about/databases`; adını değiştirebilir, hazır menü öğesiyle tek tıkla menünüze ekleyebilirsiniz.
-- **İki dilli** — İngilizce ve Türkçe ile gelir; çok dilli dergilerde çalışır.
+- **Çok dilli** — İngilizce, İspanyolca, Türkçe, Arapça ve Rusça ile gelir; çok dilli dergilerde çalışır.
 - **Arama motoru dostu** — derginizin nerede dizinlendiğini arama motorlarının anlaması için yapılandırılmış veri ekler.
 
 ## Gereksinimler
 
-- OJS **3.3.0.x**
-- PHP **7.4 – 8.2**
+- OJS **3.4.x** veya **3.5.x** (OJS 3.3 için ayrı bir 1.x sürümü vardır)
+- PHP **8.0 – 8.2** (OJS 3.5 için 8.2+)
 - MySQL / MariaDB
 - Tek ve çok dergili kurulumlarda çalışır
 
@@ -120,7 +120,7 @@ Genel sayfanız `/about/databases` adresindedir (adresi değiştirebilirsiniz). 
 
 ## Tüm temalarla çalışır
 
-Eklenti **her OJS 3.3 temasında** çalışır. **Atlas** temamızla birlikte tasarlanmıştır; Atlas'ta dizin logolarınız derginin anasayfasında bir blok olarak da görünebilir. Temalarımız: [ojs-services.com/ojs-themes](https://ojs-services.com/ojs-themes/)
+Eklenti **her OJS 3.4 / 3.5 temasında** çalışır. **Atlas** temamızla birlikte tasarlanmıştır; Atlas'ta dizin logolarınız derginin anasayfasında bir blok olarak da görünebilir. Temalarımız: [ojs-services.com/ojs-themes](https://ojs-services.com/ojs-themes/)
 
 Tema geliştiriciler galeriyi istedikleri yere `{ipm_blocks}` şablon fonksiyonuyla gömebilir.
 

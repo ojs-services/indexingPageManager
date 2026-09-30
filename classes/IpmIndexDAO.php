@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IpmIndexDAO.inc.php
+ * @file classes/IpmIndexDAO.php
  *
  * Indexing Page Manager — Index DAO.
  *
@@ -9,8 +9,10 @@
  * IndexSectionDAO; this DAO only joins them when listing by section.
  */
 
-import('lib.pkp.classes.db.DAO');
-import('plugins.generic.indexingPageManager.classes.IpmIndex');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use PKP\core\Core;
+use PKP\db\DAO;
 
 class IpmIndexDAO extends DAO
 {
@@ -156,12 +158,12 @@ class IpmIndexDAO extends DAO
         return $this->update('DELETE FROM ipm_indexes WHERE index_id = ?', [(int) $indexId]);
     }
 
-    public function getInsertId()
+    public function getInsertId(): int
     {
-        return $this->_getInsertId('ipm_indexes', 'index_id');
+        return parent::getInsertId();
     }
 
-    public function getLocaleFieldNames()
+    public function getLocaleFieldNames(): array
     {
         return ['name', 'description'];
     }

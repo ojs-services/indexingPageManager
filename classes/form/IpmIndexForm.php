@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/form/IpmIndexForm.inc.php
+ * @file classes/form/IpmIndexForm.php
  *
  * Indexing Page Manager — add/edit index form.
  *
@@ -11,19 +11,21 @@
  * file inputs from the request body).
  */
 
-import('lib.pkp.classes.form.Form');
-import('lib.pkp.classes.form.validation.FormValidator');
-import('lib.pkp.classes.form.validation.FormValidatorPost');
-import('lib.pkp.classes.form.validation.FormValidatorCSRF');
-import('lib.pkp.classes.form.validation.FormValidatorLocale');
-import('lib.pkp.classes.form.validation.FormValidatorUrl');
-import('lib.pkp.classes.file.TemporaryFileManager');
-import('plugins.generic.indexingPageManager.classes.IpmIndex');
-import('plugins.generic.indexingPageManager.classes.IpmIndexDAO');
-import('plugins.generic.indexingPageManager.classes.IpmSectionDAO');
-import('plugins.generic.indexingPageManager.classes.IpmIndexSectionDAO');
-import('plugins.generic.indexingPageManager.classes.IpmLogoStore');
-import('plugins.generic.indexingPageManager.classes.IndexingPageManagerUrlSanitizer');
+namespace APP\plugins\generic\indexingPageManager\classes\form;
+
+use APP\core\Application;
+use APP\plugins\generic\indexingPageManager\classes\IndexingPageManagerUrlSanitizer;
+use APP\plugins\generic\indexingPageManager\classes\IpmLogoStore;
+use APP\template\TemplateManager;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\file\TemporaryFileManager;
+use PKP\form\Form;
+use PKP\form\validation\FormValidator;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorLocale;
+use PKP\form\validation\FormValidatorPost;
+use PKP\form\validation\FormValidatorUrl;
 
 class IpmIndexForm extends Form
 {
@@ -56,7 +58,7 @@ class IpmIndexForm extends Form
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
 
-        $primaryLocale = AppLocale::getPrimaryLocale();
+        $primaryLocale = Locale::getPrimaryLocale();
         // FormValidatorLocale expects $requiredLocale as a STRING (single
         // locale code); passing an array crashes with "Illegal offset type".
         $this->addCheck(new FormValidatorLocale(
@@ -161,8 +163,8 @@ class IpmIndexForm extends Form
             'pluginName'       => $this->plugin->getName(),
             'indexId'          => $this->indexId,
             'supportedLocales' => $supportedLocales,
-            'primaryLocale'    => AppLocale::getPrimaryLocale(),
-            'localeNames'      => AppLocale::getAllLocales(),
+            'primaryLocale'    => Locale::getPrimaryLocale(),
+            'localeNames'      => Locale::getFormattedDisplayNames(),
             'sectionOptions'   => $sectionOptions,
             'logoUrl'          => $logoUrl,
         ]);
@@ -264,8 +266,8 @@ class IpmIndexForm extends Form
                 return $locales;
             }
         }
-        $supported = AppLocale::getSupportedLocales();
-        return $supported ? array_keys($supported) : [AppLocale::getPrimaryLocale()];
+        $supported = Locale::getSupportedLocales();
+        return $supported ? array_keys($supported) : [Locale::getPrimaryLocale()];
     }
 
     private function _nullIfBlank($value)

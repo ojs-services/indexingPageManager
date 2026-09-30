@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IndexingPageManagerUrlSanitizer.inc.php
+ * @file classes/IndexingPageManagerUrlSanitizer.php
  *
  * Indexing Page Manager — URL scheme allow-list.
  *
@@ -10,6 +10,9 @@
  * is NOT enough because HTML-entity-encoding `javascript:alert(1)` still
  * produces a working scheme the browser will execute on click.
  */
+
+namespace APP\plugins\generic\indexingPageManager\classes;
+
 class IndexingPageManagerUrlSanitizer
 {
     /** Schemes accepted for hyperlinks rendered into the public page. */

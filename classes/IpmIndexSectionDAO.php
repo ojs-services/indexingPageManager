@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IpmIndexSectionDAO.inc.php
+ * @file classes/IpmIndexSectionDAO.php
  *
  * Indexing Page Manager — pivot DAO (index <-> section many-to-many).
  *
@@ -10,7 +10,9 @@
  * DELETE; this DAO is for assignment + ordering operations.
  */
 
-import('lib.pkp.classes.db.DAO');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use PKP\db\DAO;
 
 class IpmIndexSectionDAO extends DAO
 {

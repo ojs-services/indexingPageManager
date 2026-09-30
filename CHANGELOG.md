@@ -3,6 +3,68 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.3 — 2026-09-27 (OJS 3.4 + 3.5)
+
+- **Spanish, Arabic and Russian.** The plugin now ships in five languages
+  (English, Spanish, Turkish, Arabic, Russian), the same set as the Pampas
+  theme. OJS 3.4 and 3.5 do not fall back to English for a missing plugin
+  language: on a journal working in Spanish, Arabic or Russian, the admin
+  screens showed raw keys such as
+  `##plugins.generic.indexingPageManager.admin.indexList.title##`.
+- The help text under "Short description" named a template that does not
+  exist ("Logos + names"). It now says the description shows in the templates
+  that include one.
+- **Log noise on OJS 3.4.0.8 and older.** The public page template used PHP's
+  `trim()` as a template modifier. OJS registers `trim` for templates only from
+  3.4.0.9 on; on older 3.4 releases, Smarty logged "Using php-function "trim"
+  as a modifier is deprecated" each time the template was compiled. The page
+  looked and worked the same. The page handler now trims the title and the
+  introduction itself, and the template compares them without the modifier.
+
+## 2.0.0.2 — 2026-09-26 (OJS 3.4 + 3.5)
+
+- **OJS 3.5 side menu.** The "Manage Indexing Page" entry had no icon, so it
+  sat out of line with the other entries in OJS 3.5's new side menu. It now
+  has one (`Globe`). OJS 3.4's menu has no icons; nothing changes there.
+
+## 2.0.0.1 — 2026-09-26 (OJS 3.4 + 3.5)
+
+The same code now runs on **OJS 3.4 and 3.5**, shipped as two packages with one
+version number (`indexingPageManager-ojs3.4-…`, `indexingPageManager-ojs3.5-…`).
+
+- **OJS 3.4 admin fixed.** The admin screens read the CSRF token with OJS 3.5's
+  Laravel session API (`$session->token()`), which OJS 3.4's session does not
+  have — every admin page ended in a fatal error there. `IpmCompat::csrfToken()`
+  now asks the session what it offers (`token()` on 3.5, `getCSRFToken()` on 3.4).
+- README: compatibility lines said "OJS 3.3" in this branch; they now name 3.4 / 3.5.
+
+Tested on OJS 3.4.0.3 and 3.5.0.1: install through *Upload a New Plugin*
+(tables created), enable, the public page, every admin screen, a write
+(index on/off) and the CSRF rejection path, and the Pampas theme's homepage
+logo strip.
+
+## 2.0.0.0 — 2026-06-30 (OJS 3.5 port)
+
+First OJS 3.5 release, ported from the 3.3 line following the EBM/Atlas 3.3→3.5
+runbook. This is a separate 3.5 branch; the OJS 3.3 line continues as 1.x.
+
+- **PSR-4 namespaces:** every class moved under
+  `APP\plugins\generic\indexingPageManager\…`; `.inc.php`→`.php`;
+  `import()`/`HookRegistry`/`AppLocale` replaced with `use`/`Hook`/`Locale`.
+- **LoadHandler** claims routes via instance-set (`$args[3] = new …Handler()`)
+  instead of the removed `define('HANDLER_CLASS')`.
+- **Admin sidebar** hook moved `TemplateManager::display` →
+  `TemplateManager::setupBackendPage`; role check via `$user->hasRole()`
+  (UserGroupDAO removed).
+- **Schema migration** uses the `Schema`/`DB` facades; DAO overrides typed
+  (`getInsertId(): int`, `getLocaleFieldNames(): array`); CSRF `getCSRFToken()`
+  → `token()`.
+- **Locales** `en_US`/`tr_TR` → `en`/`tr` (directories + built-in seed data);
+  admin locale badges use `Locale::getFormattedDisplayNames()`.
+- Verified live on OJS 3.5.0.1 / PHP 8.2: activation + auto-migration, public
+  page (4 sections / 24 logos, `en`/`tr`), admin (render + sidebar +
+  settings save).
+
 ## 0.1.15 — 2026-06-16
 
 - **Fix: card captions were invisible in a theme's dark mode.** The index cards

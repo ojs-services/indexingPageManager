@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/form/IpmSectionForm.inc.php
+ * @file classes/form/IpmSectionForm.php
  *
  * Indexing Page Manager — section add/edit form.
  *
@@ -9,14 +9,18 @@
  * auto-derived from the display name, unique within the journal.
  */
 
-import('lib.pkp.classes.form.Form');
-import('lib.pkp.classes.form.validation.FormValidator');
-import('lib.pkp.classes.form.validation.FormValidatorPost');
-import('lib.pkp.classes.form.validation.FormValidatorCSRF');
-import('lib.pkp.classes.form.validation.FormValidatorLocale');
-import('lib.pkp.classes.form.validation.FormValidatorRegExp');
-import('plugins.generic.indexingPageManager.classes.IpmSection');
-import('plugins.generic.indexingPageManager.classes.IpmSectionDAO');
+namespace APP\plugins\generic\indexingPageManager\classes\form;
+
+use APP\core\Application;
+use APP\plugins\generic\indexingPageManager\IndexingPageManagerPlugin;
+use APP\template\TemplateManager;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\form\Form;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorLocale;
+use PKP\form\validation\FormValidatorPost;
+use PKP\form\validation\FormValidatorRegExp;
 
 class IpmSectionForm extends Form
 {
@@ -46,7 +50,7 @@ class IpmSectionForm extends Form
             $this->section = $dao->getById($this->sectionId, $this->contextId);
         }
 
-        $primary = AppLocale::getPrimaryLocale();
+        $primary = Locale::getPrimaryLocale();
 
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
@@ -88,7 +92,7 @@ class IpmSectionForm extends Form
         $slug = trim((string) $this->getData('slug'));
         if ($slug === '') {
             $names   = (array) $this->getData('displayName');
-            $primary = AppLocale::getPrimaryLocale();
+            $primary = Locale::getPrimaryLocale();
             $source  = $names[$primary] ?? '';
             if ($source === '') {
                 foreach ($names as $v) { if ($v) { $source = $v; break; } }
@@ -161,8 +165,8 @@ class IpmSectionForm extends Form
             'slug'             => $this->section ? $this->section->getSlug() : null,
             'isBuiltIn'        => $this->section ? $this->section->getIsBuiltIn() : false,
             'supportedLocales' => $this->_supportedLocales(),
-            'primaryLocale'    => AppLocale::getPrimaryLocale(),
-            'localeNames'      => AppLocale::getAllLocales(),
+            'primaryLocale'    => Locale::getPrimaryLocale(),
+            'localeNames'      => Locale::getFormattedDisplayNames(),
         ]);
         return parent::fetch($request, $template, $display);
     }
@@ -206,7 +210,7 @@ class IpmSectionForm extends Form
             $locales = $context->getSupportedFormLocales();
             if (!empty($locales)) return $locales;
         }
-        $supported = AppLocale::getSupportedLocales();
-        return $supported ? array_keys($supported) : [AppLocale::getPrimaryLocale()];
+        $supported = Locale::getSupportedLocales();
+        return $supported ? array_keys($supported) : [Locale::getPrimaryLocale()];
     }
 }

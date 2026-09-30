@@ -12,10 +12,7 @@
  * @ingroup plugins_generic_indexingPageManager
  * @brief Wrapper for the Indexing Page Manager plugin. OJS's PluginRegistry
  *        loads each generic plugin by including its index.php and using the
- *        returned object — so this thin wrapper is required for the plugin
- *        to appear in the plugin manager list.
+ *        returned object.
  */
 
-require_once('IndexingPageManagerPlugin.inc.php');
-
-return new IndexingPageManagerPlugin();
+return new \APP\plugins\generic\indexingPageManager\IndexingPageManagerPlugin();

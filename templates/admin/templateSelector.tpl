@@ -30,7 +30,7 @@
     class="pkp_form ipm-form"
     id="indexingPageManagerTemplateForm"
     method="post"
-    action="{url router=$smarty.const.ROUTE_PAGE page="indexingPageManager" op="templateSave" escape=false}"
+    action="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="indexingPageManager" op="templateSave" escape=false}"
 >
     {csrf}
 

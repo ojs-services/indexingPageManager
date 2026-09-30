@@ -1,11 +1,11 @@
 <?php
 /**
- * @file IndexingPageManagerPlugin.inc.php
+ * @file IndexingPageManagerPlugin.php
  *
- * Indexing Page Manager — main plugin class (OJS 3.3 generic plugin).
+ * Indexing Page Manager — main plugin class (OJS 3.5 generic plugin).
  *
  * Plugin behaviour summary
- *   - Idempotently seeds 3 built-in sections per journal on enable
+ *   - Idempotently seeds 4 built-in sections per journal on enable
  *   - Registers DAOs and Smarty helpers (incl. the {ipm_blocks} theme embed)
  *   - Mounts a public showcase page at /about/<slug> (default "databases")
  *   - Registers that page as a selectable Navigation Menu destination
@@ -13,27 +13,42 @@
  *     upload, settings, template selector) via URL-addressable backend pages
  */
 
-import('lib.pkp.classes.plugins.GenericPlugin');
-import('lib.pkp.classes.linkAction.LinkAction');
-import('lib.pkp.classes.linkAction.request.RedirectAction');
 
-define('INDEXING_PAGE_MANAGER_PLUGIN_NAME', 'indexingPageManager');
+namespace APP\plugins\generic\indexingPageManager;
 
-// Custom Navigation Menu Item type — lets the journal manager drop the
-// public databases page into any nav menu via Settings → Website →
-// Navigation Menus → Add Item (reviewCertificatePro pattern).
-if (!defined('NMI_TYPE_IPM_DATABASES')) {
-    define('NMI_TYPE_IPM_DATABASES', 'NMI_TYPE_IPM_DATABASES');
-}
+use APP\core\Application;
+use APP\file\PublicFileManager;
+use APP\plugins\generic\indexingPageManager\classes\IndexingPageManagerAdminController;
+use APP\plugins\generic\indexingPageManager\classes\IndexingPageManagerSmartyHelper;
+use APP\plugins\generic\indexingPageManager\classes\IpmIndexDAO;
+use APP\plugins\generic\indexingPageManager\classes\IpmIndexSectionDAO;
+use APP\plugins\generic\indexingPageManager\classes\IpmLogoStore;
+use APP\plugins\generic\indexingPageManager\classes\IpmSectionDAO;
+use APP\template\TemplateManager;
+use Illuminate\Support\Facades\Schema;
+use PKP\core\PKPApplication;
+use PKP\db\DAORegistry;
+use PKP\linkAction\LinkAction;
+use PKP\linkAction\request\RedirectAction;
+use PKP\plugins\GenericPlugin;
+use PKP\plugins\Hook;
+use PKP\security\Role;
 
 class IndexingPageManagerPlugin extends GenericPlugin
 {
+    /**
+     * Custom Navigation Menu Item type — lets the journal manager drop the
+     * public databases page into any nav menu via Settings → Website →
+     * Navigation Menus → Add Item.
+     */
+    public const NMI_TYPE_IPM_DATABASES = 'NMI_TYPE_IPM_DATABASES';
+
     /** Built-in section seed data. Slugs are immutable; rename only the display name. */
     private const BUILT_IN_SECTIONS = [
-        ['slug' => 'indexing-and-abstracting',     'en_US' => 'Indexing & Abstracting',     'tr_TR' => 'Dizinleme ve Özetleme'],
-        ['slug' => 'discovery-and-search',         'en_US' => 'Discovery & Search',         'tr_TR' => 'Keşif ve Arama'],
-        ['slug' => 'identifiers-and-registration', 'en_US' => 'Identifiers & Registration', 'tr_TR' => 'Tanımlayıcılar ve Kayıt'],
-        ['slug' => 'archiving-and-preservation',   'en_US' => 'Archiving & Preservation',   'tr_TR' => 'Arşivleme ve Koruma'],
+        ['slug' => 'indexing-and-abstracting',     'en' => 'Indexing & Abstracting',     'tr' => 'Dizinleme ve Özetleme'],
+        ['slug' => 'discovery-and-search',         'en' => 'Discovery & Search',         'tr' => 'Keşif ve Arama'],
+        ['slug' => 'identifiers-and-registration', 'en' => 'Identifiers & Registration', 'tr' => 'Tanımlayıcılar ve Kayıt'],
+        ['slug' => 'archiving-and-preservation',   'en' => 'Archiving & Preservation',   'tr' => 'Arşivleme ve Koruma'],
     ];
 
     /**
@@ -119,20 +134,21 @@ class IndexingPageManagerPlugin extends GenericPlugin
             }
 
             // Override /about/<slug> with our frontend handler.
-            HookRegistry::register('LoadHandler', [$this, 'loadHandler']);
+            Hook::add('LoadHandler', [$this, 'loadHandler']);
 
             // Register Smarty helpers (incl. {ipm_blocks}) on display.
-            HookRegistry::register('TemplateManager::display', [$this, 'registerSmartyHelpers']);
+            Hook::add('TemplateManager::display', [$this, 'registerSmartyHelpers']);
 
-            // Inject the admin sidebar entry on backend pages.
-            HookRegistry::register('TemplateManager::display', [$this, 'addSidebarLink']);
+            // Inject the admin sidebar entry on backend pages. 3.5 moved this
+            // signal from TemplateManager::display to setupBackendPage.
+            Hook::add('TemplateManager::setupBackendPage', [$this, 'addSidebarLink']);
 
             // Register the public page as a selectable Navigation Menu type.
-            HookRegistry::register('NavigationMenus::itemTypes', [$this, 'addNavigationMenuItemTypes']);
-            HookRegistry::register('NavigationMenus::displaySettings', [$this, 'setNavigationMenuItemDisplaySettings']);
+            Hook::add('NavigationMenus::itemTypes', [$this, 'addNavigationMenuItemTypes']);
+            Hook::add('NavigationMenus::displaySettings', [$this, 'setNavigationMenuItemDisplaySettings']);
 
             // Clean up plugin data when its journal is deleted.
-            HookRegistry::register('Context::delete', [$this, 'cleanupOnJournalDelete']);
+            Hook::add('Context::delete', [$this, 'cleanupOnJournalDelete']);
         }
 
         return true;
@@ -143,7 +159,6 @@ class IndexingPageManagerPlugin extends GenericPlugin
      */
     public function getInstallMigration()
     {
-        $this->import('IndexingPageManagerSchemaMigration');
         return new IndexingPageManagerSchemaMigration();
     }
 
@@ -154,8 +169,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
     private function _tablesExist()
     {
         try {
-            return \Illuminate\Database\Capsule\Manager::schema()
-                ->hasTable('ipm_sections');
+            return Schema::hasTable('ipm_sections');
         } catch (\Throwable $e) {
             return false;
         }
@@ -168,7 +182,6 @@ class IndexingPageManagerPlugin extends GenericPlugin
     private function _runMigrationDirect()
     {
         try {
-            $this->import('IndexingPageManagerSchemaMigration');
             (new IndexingPageManagerSchemaMigration())->up();
         } catch (\Throwable $e) {
             error_log('[indexingPageManager] migration failed: ' . $e->getMessage());
@@ -185,15 +198,16 @@ class IndexingPageManagerPlugin extends GenericPlugin
      */
     public function loadHandler($hookName, $args)
     {
+        // 3.5 LoadHandler signature: [&$page, &$op, &$sourceFile, &$handler].
+        // Claim a route by SETTING $handler to a handler instance; the 3.3
+        // define('HANDLER_CLASS', ...) constant is rejected by PKPPageRouter.
         $page = & $args[0];
         $op   = & $args[1];
+        $handler = & $args[3];
 
         // (1) Backend admin route family.
         if ($page === 'indexingPageManager') {
-            $handlerFile = $this->getPluginPath() . '/pages/IndexingPageManagerManageHandler.inc.php';
-            require_once($handlerFile);
-            define('HANDLER_CLASS', 'IndexingPageManagerManageHandler');
-            $args[2] = $handlerFile;
+            $handler = new \APP\plugins\generic\indexingPageManager\pages\IndexingPageManagerManageHandler();
             return true;
         }
 
@@ -206,13 +220,10 @@ class IndexingPageManagerPlugin extends GenericPlugin
             return false;
         }
 
-        $handlerFile = $this->getPluginPath() . '/pages/IndexingPageManagerHandler.inc.php';
-        require_once($handlerFile);
-        define('HANDLER_CLASS', 'IndexingPageManagerHandler');
-        // PKPPageRouter checks in_array($op, get_class_methods(HANDLER_CLASS))
-        // after the hook returns, so $op MUST be a method name on the handler.
+        // PKPPageRouter checks in_array($op, get_class_methods($handler)) after
+        // the hook returns, so $op MUST be a real method name on the handler.
+        $handler = new \APP\plugins\generic\indexingPageManager\pages\IndexingPageManagerHandler();
         $op = 'index';
-        $args[2] = $handlerFile;
         return true;
     }
 
@@ -249,7 +260,6 @@ class IndexingPageManagerPlugin extends GenericPlugin
         /** @var TemplateManager $templateMgr */
         $templateMgr = $args[0];
 
-        $this->import('classes.IndexingPageManagerSmartyHelper');
         IndexingPageManagerSmartyHelper::register($templateMgr, $this);
         return false;
     }
@@ -263,28 +273,30 @@ class IndexingPageManagerPlugin extends GenericPlugin
      */
     public function addSidebarLink($hookName, $args)
     {
-        /** @var TemplateManager $templateMgr */
-        $templateMgr = $args[0];
+        // 3.5 fires TemplateManager::setupBackendPage with NO args — fetch the
+        // request + TemplateManager ourselves. It runs AFTER the core menu tree
+        // is pushed into state, so getState('menu') returns the built menu.
+        $request = Application::get()->getRequest();
+        $context = $request->getContext();
+        if (!$context) return false;
 
+        // Managers + site admins only. 3.5's User model exposes hasRole()
+        // directly (the old UserGroupDAO round-trip is gone).
+        $user = $request->getUser();
+        if (!$user) return false;
+        if (!$user->hasRole([Role::ROLE_ID_SITE_ADMIN, Role::ROLE_ID_MANAGER], $context->getId())) {
+            return false;
+        }
+
+        $templateMgr = TemplateManager::getManager($request);
         $menu = $templateMgr->getState('menu');
         if (!is_array($menu)) {
             return false;
         }
 
-        $request = Application::get()->getRequest();
-        $context = $request->getContext();
-        if (!$context) return false;
-
-        $user = $request->getUser();
-        if (!$user) return false;
-        $roles = $this->_getUserRoles($user, $context);
-        if (!array_intersect($roles, [ROLE_ID_SITE_ADMIN, ROLE_ID_MANAGER])) {
-            return false;
-        }
-
         $dispatcher = $request->getDispatcher();
         $manageUrl  = $dispatcher->url(
-            $request, ROUTE_PAGE,
+            $request, PKPApplication::ROUTE_PAGE,
             $context->getPath(),
             'indexingPageManager', 'indexes'
         );
@@ -298,6 +310,9 @@ class IndexingPageManagerPlugin extends GenericPlugin
             'name'      => __('plugins.generic.indexingPageManager.action.manage'),
             'url'       => $manageUrl,
             'isCurrent' => ($currentPage === 'indexingPageManager'),
+            // OJS 3.5's side menu shows an icon per entry (a name from its
+            // icon set); OJS 3.4's menu has no icons and ignores it.
+            'icon'      => 'Globe',
         ];
         $templateMgr->setState(['menu' => $menu]);
 
@@ -311,7 +326,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
     public function addNavigationMenuItemTypes($hookName, $args)
     {
         $types =& $args[0];
-        $types[NMI_TYPE_IPM_DATABASES] = [
+        $types[self::NMI_TYPE_IPM_DATABASES] = [
             'title'       => __('plugins.generic.indexingPageManager.navMenuItem.title'),
             'description' => __('plugins.generic.indexingPageManager.navMenuItem.description'),
         ];
@@ -325,7 +340,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
     public function setNavigationMenuItemDisplaySettings($hookName, $args)
     {
         $navigationMenuItem = $args[0];
-        if ($navigationMenuItem->getType() !== NMI_TYPE_IPM_DATABASES) {
+        if ($navigationMenuItem->getType() !== self::NMI_TYPE_IPM_DATABASES) {
             return false;
         }
 
@@ -339,28 +354,13 @@ class IndexingPageManagerPlugin extends GenericPlugin
         if ($context) {
             $navigationMenuItem->setUrl($dispatcher->url(
                 $request,
-                ROUTE_PAGE,
+                PKPApplication::ROUTE_PAGE,
                 $context->getPath(),
                 'about',
                 $this->_resolvePageSlug((int) $context->getId())
             ));
         }
         return false;
-    }
-
-    /**
-     * Resolve the role IDs the given user holds in the given context.
-     */
-    private function _getUserRoles($user, $context)
-    {
-        $roles = [];
-        $userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-        if (!$userGroupDao) return $roles;
-        $userGroups = $userGroupDao->getByUserId($user->getId(), $context->getId());
-        while ($userGroup = $userGroups->next()) {
-            $roles[] = $userGroup->getRoleId();
-        }
-        return $roles;
     }
 
     /**
@@ -378,7 +378,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
         $contextPath = $request->getContext() ? $request->getContext()->getPath() : null;
 
         $manageUrl = $dispatcher->url(
-            $request, ROUTE_PAGE, $contextPath, 'indexingPageManager', 'indexes'
+            $request, PKPApplication::ROUTE_PAGE, $contextPath, 'indexingPageManager', 'indexes'
         );
 
         $manageAction = new LinkAction(
@@ -399,10 +399,8 @@ class IndexingPageManagerPlugin extends GenericPlugin
      */
     public function manage($args, $request)
     {
-        AppLocale::requireComponents(LOCALE_COMPONENT_APP_COMMON, LOCALE_COMPONENT_PKP_MANAGER);
 
         $verb = $request->getUserVar('verb');
-        $this->import('classes.IndexingPageManagerAdminController');
         $controller = new IndexingPageManagerAdminController($this);
 
         // Read + mutation verbs that have controller methods. Form SAVES are
@@ -434,9 +432,6 @@ class IndexingPageManagerPlugin extends GenericPlugin
      */
     private function _registerDAOs()
     {
-        $this->import('classes.IpmSectionDAO');
-        $this->import('classes.IpmIndexDAO');
-        $this->import('classes.IpmIndexSectionDAO');
 
         DAORegistry::registerDAO('IpmSectionDAO',      new IpmSectionDAO());
         DAORegistry::registerDAO('IpmIndexDAO',        new IpmIndexDAO());
@@ -481,8 +476,8 @@ class IndexingPageManagerPlugin extends GenericPlugin
             $section->setIsBuiltIn(true);
             $section->setIsActive(true);
             $section->setSeq($i);
-            $section->setDisplayName($row['en_US'], 'en_US');
-            $section->setDisplayName($row['tr_TR'], 'tr_TR');
+            $section->setDisplayName($row['en'], 'en');
+            $section->setDisplayName($row['tr'], 'tr');
             $dao->insertObject($section);
         }
     }
@@ -498,8 +493,8 @@ class IndexingPageManagerPlugin extends GenericPlugin
         if (!$journalId) return;
 
         $defaults = [
-            'pageTitle'       => ['object', ['en_US' => 'Indexes & Databases', 'tr_TR' => 'İndeksler ve Veritabanları']],
-            'introText'       => ['object', ['en_US' => '', 'tr_TR' => '']],
+            'pageTitle'       => ['object', ['en' => 'Indexes & Databases', 'tr' => 'İndeksler ve Veritabanları']],
+            'introText'       => ['object', ['en' => '', 'tr' => '']],
             'pageSlug'        => ['string', self::DEFAULT_SLUG],
             'displayTemplate' => ['string', self::DEFAULT_TEMPLATE],
             'displayColumns'  => ['int',    4],
@@ -567,8 +562,6 @@ class IndexingPageManagerPlugin extends GenericPlugin
         }
         if (empty($sectionsBySlug)) return;
 
-        $this->import('classes.IpmLogoStore');
-        import('classes.file.PublicFileManager');
         $publicFileManager = new PublicFileManager();
         $targetDir = $publicFileManager->getContextFilesPath((int) $journalId)
             . DIRECTORY_SEPARATOR . 'indexingPageManager' . DIRECTORY_SEPARATOR . 'logos';
@@ -580,7 +573,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
 
             $index = $indexDao->newDataObject();
             $index->setJournalId($journalId);
-            foreach (['tr_TR', 'en_US'] as $loc) {
+            foreach (['tr', 'en'] as $loc) {
                 $index->setName(       $row['name'][$loc]        ?? '', $loc);
                 $index->setDescription($row['description'][$loc] ?? '', $loc);
             }
@@ -662,7 +655,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
             if ($url === '' || !isset($byUrl[$url])) continue;
             $index   = $byUrl[$url];
             $touched = false;
-            foreach (['tr_TR', 'en_US'] as $loc) {
+            foreach (['tr', 'en'] as $loc) {
                 $newDesc = (string) ($row['description'][$loc] ?? '');
                 if ($newDesc === '') continue;
                 $current = (string) $index->getDescription($loc);
@@ -699,7 +692,6 @@ class IndexingPageManagerPlugin extends GenericPlugin
         if ($indexDao) {
             foreach ($indexDao->getByJournalId($journalId, false) as $index) {
                 if ($index->getLogoPath()) {
-                    $this->import('classes.IpmLogoStore');
                     IpmLogoStore::deleteByPath($journalId, $index->getLogoPath());
                 }
                 $indexDao->deleteObject($index);
@@ -719,7 +711,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
      */
     private function _resolveContextId($mainContextId = null)
     {
-        if ($mainContextId !== null && $mainContextId !== CONTEXT_SITE) {
+        if ($mainContextId !== null && $mainContextId !== PKPApplication::CONTEXT_SITE) {
             return (int) $mainContextId;
         }
         return $this->_currentContextId();

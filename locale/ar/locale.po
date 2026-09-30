@@ -4,8 +4,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-15T00:00:00+00:00\n"
 "PO-Revision-Date: 2026-06-15T00:00:00+00:00\n"
-"Language-Team: tr_TR <translate@ojs-services.com>\n"
-"Language: tr_TR\n"
+"Language-Team: ar <translate@ojs-services.com>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,368 +13,368 @@ msgstr ""
 # Plugin metadata --------------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.name"
-msgstr "Dizinleme Sayfası Yöneticisi"
+msgstr "مدير صفحة الفهرسة"
 
 msgid "plugins.generic.indexingPageManager.description"
-msgstr "Derginizin yer aldığı dizinleme veritabanlarının, keşif servislerinin ve yayıncılık platformlarının modern bir vitrini — tek bir yönetim panelinden yönetilir, özel bir sayfada gösterilir veya temanıza gömülür."
+msgstr "عرض حديث لقواعد بيانات الفهرسة وخدمات الاكتشاف ومنصات النشر التي تتعامل معها مجلتكم، يُدار من لوحة إدارة واحدة ويُعرض في صفحة مخصصة أو ضمن القالب."
 
 msgid "plugins.generic.indexingPageManager.action.manage"
-msgstr "Dizinleme Sayfasını Yönet"
+msgstr "إدارة صفحة الفهرسة"
 
 # Navigation menu integration --------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.navMenuItem.title"
-msgstr "İndeksler ve Veritabanları sayfası"
+msgstr "صفحة الفهارس وقواعد البيانات"
 
 msgid "plugins.generic.indexingPageManager.navMenuItem.description"
-msgstr "Derginizin dizinlendiği veritabanları ve platformları gösteren Dizinleme Sayfası vitrinine bağlanır."
+msgstr "رابط إلى صفحة مدير صفحة الفهرسة التي تعرض قواعد البيانات والمنصات المفهرسة فيها مجلتكم."
 
 # Frontend ---------------------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.frontend.defaultTitle"
-msgstr "İndeksler ve Veritabanları"
+msgstr "الفهارس وقواعد البيانات"
 
-# Built-in sections ------------------------------------------------------
+# Built-in sections (slugs immutable; labels editable per locale) ---------
 
 msgid "plugins.generic.indexingPageManager.builtIn.indexing-and-abstracting"
-msgstr "Dizinleme ve Özetleme"
+msgstr "الفهرسة والاستخلاص"
 
 msgid "plugins.generic.indexingPageManager.builtIn.discovery-and-search"
-msgstr "Keşif ve Arama"
+msgstr "الاكتشاف والبحث"
 
 msgid "plugins.generic.indexingPageManager.builtIn.identifiers-and-registration"
-msgstr "Tanımlayıcılar ve Kayıt"
+msgstr "المعرّفات والتسجيل"
 
 msgid "plugins.generic.indexingPageManager.builtIn.archiving-and-preservation"
-msgstr "Arşivleme ve Koruma"
+msgstr "الأرشفة والحفظ"
 
 # Display template + columns ---------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate"
-msgstr "Görünüm şablonu"
+msgstr "قالب العرض"
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logos"
-msgstr "Yalnızca logo"
+msgstr "الشعار فقط"
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logos.desc"
-msgstr "Eşit boyutlu logo kutucuklarından oluşan sade bir ızgara, başlık yok."
+msgstr "شبكة مرتبة من شعارات متساوية الحجم، دون تسميات."
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name"
-msgstr "Logo + ad"
+msgstr "الشعار + الاسم"
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name.desc"
-msgstr "Her logo kutucuğunun altında indeks adı gösterilir."
+msgstr "يظهر اسم الفهرس أسفل كل شعار."
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name-desc"
-msgstr "Logo + ad + açıklama"
+msgstr "الشعار + الاسم + الوصف"
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name-desc.desc"
-msgstr "Logo, indeks adı ve kısa bir açıklama satırı."
+msgstr "الشعار واسم الفهرس وسطر وصف قصير."
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-desc"
-msgstr "Logo + açıklama"
+msgstr "الشعار + الوصف"
 
 msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-desc.desc"
-msgstr "Ad olmadan, logo ve kısa açıklama."
+msgstr "شعار مع وصف قصير، دون الاسم."
 
 msgid "plugins.generic.indexingPageManager.settings.displayColumns"
-msgstr "Sütun sayısı"
+msgstr "الأعمدة"
 
 msgid "plugins.generic.indexingPageManager.settings.displayColumnsHelp"
-msgstr "Logolar otomatik olarak ölçeklenir. Küçük ekranlarda ızgara otomatik olarak daha az sütuna iner."
+msgstr "يتغير حجم الشعارات تلقائيًا لتلائم المساحة، وعلى الشاشات الصغيرة تُعرض الشبكة بعدد أقل من الأعمدة تلقائيًا."
 
 msgid "plugins.generic.indexingPageManager.template.error.invalid"
-msgstr "Lütfen mevcut şablonlardan birini seçin."
+msgstr "يُرجى اختيار أحد القوالب المتاحة."
 
 # Settings page ----------------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.settings.title"
-msgstr "Dizinleme Sayfası Yöneticisi — Ayarlar"
+msgstr "مدير صفحة الفهرسة — الإعدادات"
 
 msgid "plugins.generic.indexingPageManager.settings.section.page"
-msgstr "Sayfa"
+msgstr "الصفحة"
 
 msgid "plugins.generic.indexingPageManager.settings.section.display"
-msgstr "Görünüm"
+msgstr "العرض"
 
 msgid "plugins.generic.indexingPageManager.settings.section.seo"
-msgstr "SEO"
+msgstr "تحسين الظهور في محركات البحث"
 
 msgid "plugins.generic.indexingPageManager.settings.pageTitle"
-msgstr "Sayfa başlığı"
+msgstr "عنوان الصفحة"
 
 msgid "plugins.generic.indexingPageManager.settings.introText"
-msgstr "Giriş metni (başlığın altında gösterilir)"
+msgstr "نص تمهيدي (يظهر أسفل العنوان)"
 
 msgid "plugins.generic.indexingPageManager.settings.pageSlug"
-msgstr "URL kısaltması"
+msgstr "المسار المختصر في الرابط"
 
 msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
-msgstr "Sayfa /about/<kısaltma> adresinde yayınlanır. Varsayılan: databases."
+msgstr "تُتاح الصفحة على المسار /about/<slug>. القيمة الافتراضية: databases."
 
 msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
-msgstr "Kısaltma bir harfle başlamalı ve yalnızca harf, rakam ve tire içermelidir."
+msgstr "يجب أن يبدأ المسار المختصر بحرف وألا يتضمن إلا حروفًا وأرقامًا وشرطات."
 
 msgid "plugins.generic.indexingPageManager.settings.enableSchemaOrg"
-msgstr "SEO için Schema.org JSON-LD göm"
+msgstr "تضمين بيانات Schema.org بصيغة JSON-LD لتحسين الظهور في محركات البحث"
 
 msgid "plugins.generic.indexingPageManager.settings.enableSchemaOrgHelp"
-msgstr "Arama motorlarının derginizi hangi veritabanlarının dizinlediğini anlamasına yardımcı olan yapılandırılmış veri betiği (Organization girdilerinden oluşan bir CollectionPage) ekler."
+msgstr "يضيف نصًا برمجيًا للبيانات المنظَّمة (صفحة CollectionPage تضم عناصر Organization) يساعد محركات البحث على معرفة قواعد البيانات التي تفهرس مجلتكم."
 
 msgid "plugins.generic.indexingPageManager.settings.status.heading"
-msgstr "Eklenti durumu"
+msgstr "حالة الإضافة"
 
 msgid "plugins.generic.indexingPageManager.settings.status.activation"
-msgstr "Etkinleştirme"
+msgstr "التفعيل"
 
 msgid "plugins.generic.indexingPageManager.settings.status.enabled"
-msgstr "Etkin"
+msgstr "مفعّلة"
 
 msgid "plugins.generic.indexingPageManager.settings.status.toggleHint"
-msgstr "Devre dışı bırakmak veya yeniden etkinleştirmek için Ayarlar → Web Sitesi → Eklentiler'i kullanın."
+msgstr "لتعطيلها أو إعادة تفعيلها استخدموا الإعدادات ← الموقع ← الإضافات."
 
 msgid "plugins.generic.indexingPageManager.settings.status.publicUrl"
-msgstr "Genel sayfa"
+msgstr "الصفحة العامة"
 
 msgid "plugins.generic.indexingPageManager.settings.status.routeNote"
-msgstr "Eklenti etkin olduğu sürece bu adres vitrininizi gösterir. Ayrıca Ayarlar → Web Sitesi → Gezinme Menüleri yoluyla herhangi bir menüye ekleyebilirsiniz."
+msgstr "ما دامت الإضافة مفعّلة يعرض هذا الرابط صفحتكم. ويمكنكم أيضًا إضافته إلى أي قائمة تنقّل من الإعدادات ← الموقع ← التنقل."
 
 # Admin — index list -----------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.title"
-msgstr "İndeksler ve Veritabanları"
+msgstr "الفهارس وقواعد البيانات"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.subtitle"
-msgstr "Derginizin yer aldığı veritabanlarını, keşif servislerini ve platformları düzenleyin."
+msgstr "نظّموا قواعد البيانات وخدمات الاكتشاف والمنصات التي تتعامل معها مجلتكم."
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.preview"
-msgstr "Önizle"
+msgstr "معاينة"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.addIndex"
-msgstr "İndeks Ekle"
+msgstr "إضافة فهرس"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.addToThis"
-msgstr "Bu bölüme ekle"
+msgstr "إضافة إلى هذا القسم"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.toggleActive"
-msgstr "Etkin durumunu değiştir"
+msgstr "تبديل حالة التفعيل"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.dragSection"
-msgstr "Bölümü yeniden sıralamak için sürükleyin"
+msgstr "اسحب لإعادة ترتيب القسم"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.dragIndex"
-msgstr "İndeksi yeniden sıralamak için sürükleyin"
+msgstr "اسحب لإعادة ترتيب الفهرس"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.sectionEmpty"
-msgstr "Bu bölümde henüz indeks yok."
+msgstr "لا توجد فهارس في هذا القسم بعد."
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.empty.title"
-msgstr "Henüz indeks yok"
+msgstr "لا توجد فهارس بعد"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.empty.body"
-msgstr "İlk dizinleme veritabanınızı ekleyerek başlayın."
+msgstr "ابدؤوا بإضافة أول قاعدة بيانات فهرسة."
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.stats.total"
-msgstr "Toplam İndeks"
+msgstr "إجمالي الفهارس"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.stats.active"
-msgstr "Etkin"
+msgstr "النشطة"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.stats.sections"
-msgstr "Dolu bölümler"
+msgstr "الأقسام غير الفارغة"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.stats.template"
-msgstr "Etkin şablon"
+msgstr "القالب النشط"
 
 msgid "plugins.generic.indexingPageManager.admin.indexList.stats.cols"
-msgstr "sütun"
+msgstr "أعمدة"
 
 # Admin — index form -----------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.title"
-msgstr "İndeks"
+msgstr "الفهرس"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.addTitle"
-msgstr "İndeks Ekle"
+msgstr "إضافة فهرس"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.editTitle"
-msgstr "İndeksi Düzenle"
+msgstr "تعديل الفهرس"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.saved"
-msgstr "İndeks kaydedildi."
+msgstr "تم حفظ الفهرس."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.logo"
-msgstr "Logo"
+msgstr "الشعار"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.logoChoose"
-msgstr "Logo seç"
+msgstr "اختيار شعار"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.logoRemove"
-msgstr "Logoyu kaldır"
+msgstr "إزالة الشعار"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.logoPlaceholder"
-msgstr "Logo yüklenmedi"
+msgstr "لم يُرفع أي شعار"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.logoHelp"
-msgstr "Önerilen: yaklaşık 400×150 px ve ~100 KB altında yatay bir logo. Tüm logoları aynı boyutta tutmak hem daha düzenli görünür hem de sayfanın daha hızlı yüklenmesine yardımcı olur. Şeffaf arka planlı PNG en iyi görünümü verir; JPG, PNG veya WebP kabul edilir."
+msgstr "يُنصح بشعار أفقي بحجم 400×150 بكسل تقريبًا وأقل من 100 كيلوبايت. توحيد حجم الشعارات يجعل الصفحة أكثر ترتيبًا ويسرّع تحميلها. أفضل خيار هو PNG بخلفية شفافة، وتُقبل صيغ JPG وPNG وWebP."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.status"
-msgstr "Durum"
+msgstr "الحالة"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.isActive"
-msgstr "Etkin (genel sayfada görünür)"
+msgstr "نشط (يظهر في الصفحة العامة)"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.isActiveHelp"
-msgstr "Etkin olmayan girdiler veritabanında kalır ancak ön yüzde gösterilmez."
+msgstr "تبقى العناصر غير النشطة في قاعدة البيانات لكنها لا تُعرض في الواجهة العامة."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.sections"
-msgstr "Bölümler"
+msgstr "الأقسام"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.details"
-msgstr "İndeks bilgileri"
+msgstr "تفاصيل الفهرس"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.detailsHelp"
-msgstr "Çok dilli alanlar — her dil için doldurun. Çoğu indeks adı her dilde aynı okunan marka adlarıdır."
+msgstr "حقول متعددة اللغات، املؤوها لكل لغة. معظم أسماء الفهارس علامات تجارية تُكتب بالشكل نفسه في كل اللغات."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.name"
-msgstr "Ad"
+msgstr "الاسم"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.description"
-msgstr "Kısa açıklama (isteğe bağlı)"
+msgstr "وصف قصير (اختياري)"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.descriptionHelp"
-msgstr "\"Logolar + adlar\" şablonu etkinken logonun altında gösterilir. Düz metin; HTML temizlenir."
+msgstr "يظهر أسفل الشعار في القوالب التي تتضمن الوصف. نص عادي، وتُحذف أي شيفرة HTML."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.link"
-msgstr "Dış bağlantı"
+msgstr "رابط خارجي"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.url"
-msgstr "URL"
+msgstr "الرابط"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.urlHelp"
-msgstr "İndeksin kendi web sitesine bağlantı. http:// veya https:// ile başlamalıdır."
+msgstr "رابط الموقع الرسمي للفهرس. يجب أن يبدأ بـ http:// أو https://."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.error.name"
-msgstr "Ad en az birincil dil için zorunludur."
+msgstr "الاسم مطلوب للغة الأساسية على الأقل."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.error.sections"
-msgstr "En az bir bölüm seçin."
+msgstr "اختاروا قسمًا واحدًا على الأقل."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.error.url"
-msgstr "http:// veya https:// ile başlayan tam bir URL girin."
+msgstr "أدخلوا رابطًا كاملًا يبدأ بـ http:// أو https://."
 
 # Admin — sections -------------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.admin.sections.title"
-msgstr "Bölümler"
+msgstr "الأقسام"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.subtitle"
-msgstr "Yerleşik bölümler silinemez ancak yeniden adlandırılabilir, sıralanabilir veya gizlenebilir."
+msgstr "لا يمكن حذف الأقسام المدمجة، لكن يمكن إعادة تسميتها أو ترتيبها أو إخفاؤها."
 
 msgid "plugins.generic.indexingPageManager.admin.sections.backToIndexes"
-msgstr "İndekslere dön"
+msgstr "العودة إلى الفهارس"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.addSection"
-msgstr "Bölüm Ekle"
+msgstr "إضافة قسم"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.builtIn"
-msgstr "Yerleşik"
+msgstr "مدمج"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.custom"
-msgstr "Özel"
+msgstr "مخصص"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.inactive"
-msgstr "Gizli"
+msgstr "مخفي"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.empty.title"
-msgstr "Henüz bölüm yok."
+msgstr "لا توجد أقسام بعد."
 
 msgid "plugins.generic.indexingPageManager.admin.sections.error.cannotDeleteBuiltIn"
-msgstr "Yerleşik bölümler silinemez. Gizlemek için etkin durumunu kapatın."
+msgstr "لا يمكن حذف الأقسام المدمجة. عطّلوها لإخفائها بدلًا من ذلك."
 
 # Admin — section form ---------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.title"
-msgstr "Bölüm"
+msgstr "القسم"
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.addTitle"
-msgstr "Bölüm Ekle"
+msgstr "إضافة قسم"
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.editTitle"
-msgstr "Bölümü Düzenle"
+msgstr "تعديل القسم"
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.saved"
-msgstr "Bölüm kaydedildi."
+msgstr "تم حفظ القسم."
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.displayName"
-msgstr "Görünen ad"
+msgstr "الاسم المعروض"
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.displayNameHelp"
-msgstr "Okuyucuların bölüm başlığı olarak gördüğü ad. Her dil için çevirin."
+msgstr "هو عنوان القسم الذي يراه القراء. ترجموه لكل لغة."
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.isActive"
-msgstr "Etkin"
+msgstr "نشط"
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.isActiveHelp"
-msgstr "Etkin olmayan bölümler, indeks içerse bile genel sayfada gizlenir."
+msgstr "تُخفى الأقسام غير النشطة في الصفحة العامة حتى لو كانت تحتوي على فهارس."
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.error.displayName"
-msgstr "Görünen ad en az birincil dil için zorunludur."
+msgstr "الاسم المعروض مطلوب للغة الأساسية على الأقل."
 
 msgid "plugins.generic.indexingPageManager.admin.sectionForm.error.slug"
-msgstr "Görünen addan bir tanımlayıcı türetilemedi. Lütfen önce bir görünen ad girin."
+msgstr "تعذّر إنشاء معرّف من الاسم المعروض. يُرجى إدخال الاسم المعروض أولًا."
 
 # Admin — template selector ----------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.admin.templates.title"
-msgstr "Şablon"
+msgstr "القالب"
 
 msgid "plugins.generic.indexingPageManager.admin.templateSelector.title"
-msgstr "Bir görünüm şablonu seçin"
+msgstr "اختاروا قالب العرض"
 
 msgid "plugins.generic.indexingPageManager.admin.templateSelector.help"
-msgstr "Okuyucularınızın göreceği düzeni ve kaç sütun logo gösterileceğini seçin. Bunu istediğiniz zaman değiştirebilirsiniz."
+msgstr "اختاروا التخطيط الذي سيراه القراء وعدد أعمدة الشعارات. يمكنكم تغيير ذلك في أي وقت."
 
 # Admin — shared ---------------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.admin.formError"
-msgstr "Lütfen vurgulanan alanları düzeltip yeniden deneyin."
+msgstr "يُرجى تصحيح الحقول المميزة والمحاولة مرة أخرى."
 
 msgid "plugins.generic.indexingPageManager.admin.footer.developedBy"
-msgstr "Geliştiren"
+msgstr "من تطوير"
 
 msgid "plugins.generic.indexingPageManager.admin.js.requestFailed"
-msgstr "İstek başarısız oldu. Lütfen yeniden deneyin."
+msgstr "فشل الطلب. يُرجى المحاولة مرة أخرى."
 
 msgid "plugins.generic.indexingPageManager.admin.js.deleteIndexConfirm"
-msgstr "\"{$name}\" silinsin mi? Bu işlem geri alınamaz."
+msgstr "حذف «{$name}»؟ لا يمكن التراجع عن ذلك."
 
 msgid "plugins.generic.indexingPageManager.admin.js.deleteSectionConfirm"
-msgstr "\"{$name}\" bölümü silinsin mi? Bu bölümdeki indeksler kalır ancak bu atamayı kaybeder."
+msgstr "حذف القسم «{$name}»؟ ستبقى الفهارس الموجودة فيه لكنها لن تبقى مرتبطة به."
 
 msgid "plugins.generic.indexingPageManager.admin.js.logoUploadFailed"
-msgstr "Logo yüklenemedi. Lütfen yeniden deneyin."
+msgstr "فشل رفع الشعار. يُرجى المحاولة مرة أخرى."
 
 msgid "plugins.generic.indexingPageManager.admin.js.saving"
-msgstr "Kaydediliyor…"
+msgstr "جارٍ الحفظ…"
 
 msgid "plugins.generic.indexingPageManager.admin.js.saved"
-msgstr "Kaydedildi."
+msgstr "تم الحفظ."
 
 msgid "plugins.generic.indexingPageManager.admin.js.saveFailed"
-msgstr "Kaydetme başarısız oldu. Lütfen yeniden deneyin."
+msgstr "فشل الحفظ. يُرجى المحاولة مرة أخرى."
 
 msgid "plugins.generic.indexingPageManager.admin.js.networkError"
-msgstr "Ağ hatası. Lütfen yeniden deneyin."
+msgstr "خطأ في الشبكة. يُرجى المحاولة مرة أخرى."
 
 msgid "plugins.generic.indexingPageManager.admin.error.invalidRequest"
-msgstr "Oturumunuz sona ermiş veya istek geçersiz. Lütfen sayfayı yenileyip yeniden deneyin."
+msgstr "انتهت الجلسة أو كان الطلب غير صالح. يُرجى إعادة تحميل الصفحة والمحاولة مرة أخرى."
 
 msgid "plugins.generic.indexingPageManager.admin.tabs.ariaLabel"
-msgstr "İndeksleme Sayfası bölümleri"
+msgstr "أقسام صفحة الفهرسة"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.slugLabel"
-msgstr "Bölüm kısa adı: {$slug}"
+msgstr "المسار المختصر للقسم: {$slug}"
 
 msgid "plugins.generic.indexingPageManager.admin.sections.toggleActive"
-msgstr "Etkin durumunu değiştir"
+msgstr "تبديل حالة التفعيل"

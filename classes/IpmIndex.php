@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IpmIndex.inc.php
+ * @file classes/IpmIndex.php
  *
  * Indexing Page Manager — Index data object.
  *
@@ -11,7 +11,9 @@
  * Single-locale fields: logoPath, url.
  */
 
-import('lib.pkp.classes.core.DataObject');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use PKP\core\DataObject;
 
 class IpmIndex extends DataObject
 {

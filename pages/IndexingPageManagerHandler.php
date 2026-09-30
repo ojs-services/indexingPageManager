@@ -1,6 +1,6 @@
 <?php
 /**
- * @file pages/IndexingPageManagerHandler.inc.php
+ * @file pages/IndexingPageManagerHandler.php
  *
  * Indexing Page Manager — public-facing page handler.
  *
@@ -10,10 +10,17 @@
  * dispatches to one of the two grid templates (logos / named).
  */
 
-import('classes.handler.Handler');
-import('plugins.generic.indexingPageManager.classes.IpmIndexDAO');
-import('plugins.generic.indexingPageManager.classes.IpmSectionDAO');
-import('plugins.generic.indexingPageManager.classes.IpmLogoStore');
+
+namespace APP\plugins\generic\indexingPageManager\pages;
+
+use APP\handler\Handler;
+use APP\plugins\generic\indexingPageManager\classes\IndexingPageManagerSchemaOrg;
+use APP\plugins\generic\indexingPageManager\classes\IndexingPageManagerSmartyHelper;
+use APP\plugins\generic\indexingPageManager\IndexingPageManagerPlugin;
+use APP\template\TemplateManager;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\plugins\PluginRegistry;
 
 class IndexingPageManagerHandler extends Handler
 {
@@ -40,11 +47,6 @@ class IndexingPageManagerHandler extends Handler
         // PKPPageRouter does NOT auto-load PKP_USER / PKP_COMMON for us —
         // without these any {translate key="user.login"} in the theme header
         // falls through to the ##key## sentinel format.
-        AppLocale::requireComponents(
-            LOCALE_COMPONENT_PKP_USER,
-            LOCALE_COMPONENT_PKP_COMMON,
-            LOCALE_COMPONENT_APP_COMMON
-        );
 
         // PluginRegistry keys lazy-load generic plugins by strtolower(class).
         /** @var IndexingPageManagerPlugin $plugin */
@@ -93,8 +95,7 @@ class IndexingPageManagerHandler extends Handler
 
         // Pre-render Schema.org JSON-LD.
         $schemaJson = '';
-        if ($enableSchema && file_exists($plugin->getPluginPath() . '/classes/IndexingPageManagerSchemaOrg.inc.php')) {
-            $plugin->import('classes.IndexingPageManagerSchemaOrg');
+        if ($enableSchema && file_exists($plugin->getPluginPath() . '/classes/IndexingPageManagerSchemaOrg.php')) {
             $schemaJson = IndexingPageManagerSchemaOrg::renderForBlocks($blocks, $request, $contextId, $pageTitle);
         }
 
@@ -102,7 +103,6 @@ class IndexingPageManagerHandler extends Handler
 
         // Smarty helpers (registered idempotently via the display hook; call
         // here too in case the hook was missed).
-        $plugin->import('classes.IndexingPageManagerSmartyHelper');
         IndexingPageManagerSmartyHelper::register($tm, $plugin);
 
         // Stylesheets — append ?v=<plugin version> so an upgrade invalidates
@@ -124,8 +124,10 @@ class IndexingPageManagerHandler extends Handler
 
         $tm->assign([
             'ipmBlocks'         => $blocks,
-            'ipmPageTitle'      => $pageTitle,
-            'ipmIntroText'      => $introText,
+            // Trimmed here, not in the template: OJS 3.4.0.8 and older do not
+            // register `trim` as a template modifier (Smarty 4 deprecation).
+            'ipmPageTitle'      => trim((string) $pageTitle),
+            'ipmIntroText'      => trim((string) $introText),
             'ipmContextId'      => $contextId,
             'ipmTemplate'       => $template,
             'ipmShowName'       => $flags['name'],
@@ -147,9 +149,9 @@ class IndexingPageManagerHandler extends Handler
         if (!is_array($values)) {
             return $values ?: null;
         }
-        $locale = AppLocale::getLocale();
+        $locale = Locale::getLocale();
         if (isset($values[$locale]) && $values[$locale] !== '') return $values[$locale];
-        $primary = AppLocale::getPrimaryLocale();
+        $primary = Locale::getPrimaryLocale();
         if (isset($values[$primary]) && $values[$primary] !== '') return $values[$primary];
         foreach ($values as $v) if ($v !== '') return $v;
         return null;

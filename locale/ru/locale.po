@@ -1,0 +1,380 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Indexing Page Manager 0.1.13\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-15T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-06-15T00:00:00+00:00\n"
+"Language-Team: ru <translate@ojs-services.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Plugin metadata --------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.name"
+msgstr "Менеджер страницы индексирования"
+
+msgid "plugins.generic.indexingPageManager.description"
+msgstr "Современная витрина баз данных индексирования, поисковых сервисов и издательских платформ, с которыми работает ваш журнал: управление из одной панели администратора, показ на отдельной странице или внутри темы."
+
+msgid "plugins.generic.indexingPageManager.action.manage"
+msgstr "Управление страницей индексирования"
+
+# Navigation menu integration --------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.navMenuItem.title"
+msgstr "Страница «Индексы и базы данных»"
+
+msgid "plugins.generic.indexingPageManager.navMenuItem.description"
+msgstr "Ссылка на витрину менеджера страницы индексирования с базами данных и платформами, в которых индексируется ваш журнал."
+
+# Frontend ---------------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.frontend.defaultTitle"
+msgstr "Индексы и базы данных"
+
+# Built-in sections (slugs immutable; labels editable per locale) ---------
+
+msgid "plugins.generic.indexingPageManager.builtIn.indexing-and-abstracting"
+msgstr "Индексирование и реферирование"
+
+msgid "plugins.generic.indexingPageManager.builtIn.discovery-and-search"
+msgstr "Поиск и обнаружение"
+
+msgid "plugins.generic.indexingPageManager.builtIn.identifiers-and-registration"
+msgstr "Идентификаторы и регистрация"
+
+msgid "plugins.generic.indexingPageManager.builtIn.archiving-and-preservation"
+msgstr "Архивирование и сохранность"
+
+# Display template + columns ---------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate"
+msgstr "Шаблон отображения"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logos"
+msgstr "Только логотип"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logos.desc"
+msgstr "Аккуратная сетка логотипов одинакового размера, без подписей."
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name"
+msgstr "Логотип + название"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name.desc"
+msgstr "Под каждым логотипом показано название индекса."
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name-desc"
+msgstr "Логотип + название + описание"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name-desc.desc"
+msgstr "Логотип, название индекса и короткая строка описания."
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-desc"
+msgstr "Логотип + описание"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-desc.desc"
+msgstr "Логотип с кратким описанием, без названия."
+
+msgid "plugins.generic.indexingPageManager.settings.displayColumns"
+msgstr "Столбцы"
+
+msgid "plugins.generic.indexingPageManager.settings.displayColumnsHelp"
+msgstr "Логотипы масштабируются автоматически. На небольших экранах сетка сама переходит на меньшее число столбцов."
+
+msgid "plugins.generic.indexingPageManager.template.error.invalid"
+msgstr "Выберите один из доступных шаблонов."
+
+# Settings page ----------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.settings.title"
+msgstr "Менеджер страницы индексирования — настройки"
+
+msgid "plugins.generic.indexingPageManager.settings.section.page"
+msgstr "Страница"
+
+msgid "plugins.generic.indexingPageManager.settings.section.display"
+msgstr "Отображение"
+
+msgid "plugins.generic.indexingPageManager.settings.section.seo"
+msgstr "SEO"
+
+msgid "plugins.generic.indexingPageManager.settings.pageTitle"
+msgstr "Заголовок страницы"
+
+msgid "plugins.generic.indexingPageManager.settings.introText"
+msgstr "Вводный текст (показывается под заголовком)"
+
+msgid "plugins.generic.indexingPageManager.settings.pageSlug"
+msgstr "Адрес страницы (slug)"
+
+msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
+msgstr "Страница доступна по адресу /about/<slug>. По умолчанию: databases."
+
+msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
+msgstr "Адрес должен начинаться с буквы и содержать только буквы, цифры и дефисы."
+
+msgid "plugins.generic.indexingPageManager.settings.enableSchemaOrg"
+msgstr "Встраивать JSON-LD Schema.org для SEO"
+
+msgid "plugins.generic.indexingPageManager.settings.enableSchemaOrgHelp"
+msgstr "Добавляет скрипт структурированных данных (CollectionPage с записями Organization), который помогает поисковым системам понять, какие базы данных индексируют ваш журнал."
+
+msgid "plugins.generic.indexingPageManager.settings.status.heading"
+msgstr "Состояние модуля"
+
+msgid "plugins.generic.indexingPageManager.settings.status.activation"
+msgstr "Активация"
+
+msgid "plugins.generic.indexingPageManager.settings.status.enabled"
+msgstr "Включён"
+
+msgid "plugins.generic.indexingPageManager.settings.status.toggleHint"
+msgstr "Чтобы отключить или снова включить модуль, откройте Настройки → Веб-сайт → Модули."
+
+msgid "plugins.generic.indexingPageManager.settings.status.publicUrl"
+msgstr "Публичная страница"
+
+msgid "plugins.generic.indexingPageManager.settings.status.routeNote"
+msgstr "Пока модуль включён, по этому адресу открывается ваша витрина. Её также можно добавить в любое меню навигации: Настройки → Веб-сайт → Навигация."
+
+# Admin — index list -----------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.title"
+msgstr "Индексы и базы данных"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.subtitle"
+msgstr "Составьте список баз данных, поисковых сервисов и платформ, с которыми работает ваш журнал."
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.preview"
+msgstr "Предпросмотр"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.addIndex"
+msgstr "Добавить индекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.addToThis"
+msgstr "Добавить в этот раздел"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.toggleActive"
+msgstr "Включить или выключить"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.dragSection"
+msgstr "Перетащите, чтобы изменить порядок раздела"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.dragIndex"
+msgstr "Перетащите, чтобы изменить порядок индекса"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.sectionEmpty"
+msgstr "В этом разделе пока нет индексов."
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.empty.title"
+msgstr "Индексов пока нет"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.empty.body"
+msgstr "Начните с добавления первой базы данных индексирования."
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.total"
+msgstr "Всего индексов"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.active"
+msgstr "Активные"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.sections"
+msgstr "Заполненные разделы"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.template"
+msgstr "Активный шаблон"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.cols"
+msgstr "стб."
+
+# Admin — index form -----------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.title"
+msgstr "Индекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.addTitle"
+msgstr "Добавить индекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.editTitle"
+msgstr "Изменить индекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.saved"
+msgstr "Индекс сохранён."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logo"
+msgstr "Логотип"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoChoose"
+msgstr "Выбрать логотип"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoRemove"
+msgstr "Удалить логотип"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoPlaceholder"
+msgstr "Логотип не загружен"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoHelp"
+msgstr "Рекомендуется горизонтальный логотип около 400×150 пикселей и не более ~100 КБ. Логотипы одного размера выглядят аккуратнее и ускоряют загрузку страницы. Лучше всего подходит PNG с прозрачным фоном; принимаются JPG, PNG и WebP."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.status"
+msgstr "Статус"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.isActive"
+msgstr "Активен (виден на публичной странице)"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.isActiveHelp"
+msgstr "Неактивные записи остаются в базе данных, но не показываются на сайте."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.sections"
+msgstr "Разделы"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.details"
+msgstr "Сведения об индексе"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.detailsHelp"
+msgstr "Многоязычные поля — заполните их для каждого языка. Большинство названий индексов — это бренды, которые пишутся одинаково на всех языках."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.name"
+msgstr "Название"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.description"
+msgstr "Краткое описание (необязательно)"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.descriptionHelp"
+msgstr "Показывается под логотипом в шаблонах с описанием. Только текст; HTML удаляется."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.link"
+msgstr "Внешняя ссылка"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.url"
+msgstr "URL-адрес"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.urlHelp"
+msgstr "Ссылка на собственный сайт индекса. Должна начинаться с http:// или https://."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.error.name"
+msgstr "Название обязательно хотя бы для основного языка."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.error.sections"
+msgstr "Выберите хотя бы один раздел."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.error.url"
+msgstr "Введите полный адрес, начинающийся с http:// или https://."
+
+# Admin — sections -------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.sections.title"
+msgstr "Разделы"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.subtitle"
+msgstr "Встроенные разделы нельзя удалить, но можно переименовать, переупорядочить или скрыть."
+
+msgid "plugins.generic.indexingPageManager.admin.sections.backToIndexes"
+msgstr "Назад к индексам"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.addSection"
+msgstr "Добавить раздел"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.builtIn"
+msgstr "Встроенный"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.custom"
+msgstr "Пользовательский"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.inactive"
+msgstr "Скрыт"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.empty.title"
+msgstr "Разделов пока нет."
+
+msgid "plugins.generic.indexingPageManager.admin.sections.error.cannotDeleteBuiltIn"
+msgstr "Встроенные разделы нельзя удалить. Чтобы скрыть раздел, сделайте его неактивным."
+
+# Admin — section form ---------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.title"
+msgstr "Раздел"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.addTitle"
+msgstr "Добавить раздел"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.editTitle"
+msgstr "Изменить раздел"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.saved"
+msgstr "Раздел сохранён."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.displayName"
+msgstr "Отображаемое название"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.displayNameHelp"
+msgstr "Заголовок раздела, который видят читатели. Переведите его для каждого языка."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.isActive"
+msgstr "Активен"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.isActiveHelp"
+msgstr "Неактивные разделы скрыты на публичной странице, даже если в них есть индексы."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.error.displayName"
+msgstr "Отображаемое название обязательно хотя бы для основного языка."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.error.slug"
+msgstr "Не удалось получить идентификатор из отображаемого названия. Сначала введите отображаемое название."
+
+# Admin — template selector ----------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.templates.title"
+msgstr "Шаблон"
+
+msgid "plugins.generic.indexingPageManager.admin.templateSelector.title"
+msgstr "Выберите шаблон отображения"
+
+msgid "plugins.generic.indexingPageManager.admin.templateSelector.help"
+msgstr "Выберите макет, который увидят читатели, и число столбцов с логотипами. Это можно изменить в любой момент."
+
+# Admin — shared ---------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.formError"
+msgstr "Исправьте выделенные поля и попробуйте снова."
+
+msgid "plugins.generic.indexingPageManager.admin.footer.developedBy"
+msgstr "Разработка:"
+
+msgid "plugins.generic.indexingPageManager.admin.js.requestFailed"
+msgstr "Запрос не выполнен. Попробуйте ещё раз."
+
+msgid "plugins.generic.indexingPageManager.admin.js.deleteIndexConfirm"
+msgstr "Удалить «{$name}»? Это действие нельзя отменить."
+
+msgid "plugins.generic.indexingPageManager.admin.js.deleteSectionConfirm"
+msgstr "Удалить раздел «{$name}»? Индексы из этого раздела сохранятся, но больше не будут к нему привязаны."
+
+msgid "plugins.generic.indexingPageManager.admin.js.logoUploadFailed"
+msgstr "Не удалось загрузить логотип. Попробуйте ещё раз."
+
+msgid "plugins.generic.indexingPageManager.admin.js.saving"
+msgstr "Сохранение…"
+
+msgid "plugins.generic.indexingPageManager.admin.js.saved"
+msgstr "Сохранено."
+
+msgid "plugins.generic.indexingPageManager.admin.js.saveFailed"
+msgstr "Не удалось сохранить. Попробуйте ещё раз."
+
+msgid "plugins.generic.indexingPageManager.admin.js.networkError"
+msgstr "Ошибка сети. Попробуйте ещё раз."
+
+msgid "plugins.generic.indexingPageManager.admin.error.invalidRequest"
+msgstr "Сеанс истёк или запрос недействителен. Перезагрузите страницу и попробуйте снова."
+
+msgid "plugins.generic.indexingPageManager.admin.tabs.ariaLabel"
+msgstr "Разделы страницы индексирования"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.slugLabel"
+msgstr "Идентификатор раздела: {$slug}"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.toggleActive"
+msgstr "Включить или выключить"

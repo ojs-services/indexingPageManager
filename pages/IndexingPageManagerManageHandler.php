@@ -1,6 +1,6 @@
 <?php
 /**
- * @file pages/IndexingPageManagerManageHandler.inc.php
+ * @file pages/IndexingPageManagerManageHandler.php
  *
  * Indexing Page Manager — backend admin handler (URL-based).
  *
@@ -28,7 +28,23 @@
  *   /index.php/<journal>/indexingPageManager/settingsSave     (POST)
  */
 
-import('classes.handler.Handler');
+
+namespace APP\plugins\generic\indexingPageManager\pages;
+
+use APP\handler\Handler;
+use APP\plugins\generic\indexingPageManager\classes\IndexingPageManagerAdminController;
+use APP\plugins\generic\indexingPageManager\classes\IndexingPageManagerSmartyHelper;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmIndexForm;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmSectionForm;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmSettingsForm;
+use APP\plugins\generic\indexingPageManager\classes\form\IpmTemplateForm;
+use APP\template\TemplateManager;
+use PKP\core\PKPApplication;
+use PKP\plugins\PluginRegistry;
+use PKP\security\Role;
+use PKP\security\authorization\ContextAccessPolicy;
+use PKP\security\authorization\PKPSiteAccessPolicy;
+use PKP\security\authorization\PolicySet;
 
 class IndexingPageManagerManageHandler extends Handler
 {
@@ -41,7 +57,7 @@ class IndexingPageManagerManageHandler extends Handler
         // mustaches and loses the sidebar.
         $this->_isBackendPage = true;
         $this->addRoleAssignment(
-            [ROLE_ID_SITE_ADMIN, ROLE_ID_MANAGER],
+            [Role::ROLE_ID_SITE_ADMIN, Role::ROLE_ID_MANAGER],
             [
                 'index',
                 'indexes', 'indexForm', 'indexSave', 'indexDelete',
@@ -56,11 +72,8 @@ class IndexingPageManagerManageHandler extends Handler
 
     public function authorize($request, &$args, $roleAssignments)
     {
-        import('lib.pkp.classes.security.authorization.PolicySet');
         $rolePolicy = new PolicySet(COMBINING_PERMIT_OVERRIDES);
-        import('lib.pkp.classes.security.authorization.PKPSiteAccessPolicy');
         $rolePolicy->addPolicy(new PKPSiteAccessPolicy($request, null, $roleAssignments));
-        import('lib.pkp.classes.security.authorization.ContextAccessPolicy');
         $rolePolicy->addPolicy(new ContextAccessPolicy($request, $roleAssignments));
         $this->addPolicy($rolePolicy);
         return parent::authorize($request, $args, $roleAssignments);
@@ -68,14 +81,6 @@ class IndexingPageManagerManageHandler extends Handler
 
     public function initialize($request, $args = null)
     {
-        AppLocale::requireComponents(
-            LOCALE_COMPONENT_APP_COMMON,
-            LOCALE_COMPONENT_APP_MANAGER,
-            LOCALE_COMPONENT_PKP_COMMON,
-            LOCALE_COMPONENT_PKP_MANAGER,
-            LOCALE_COMPONENT_PKP_GRID,
-            LOCALE_COMPONENT_PKP_USER
-        );
         return parent::initialize($request, $args);
     }
 
@@ -87,7 +92,6 @@ class IndexingPageManagerManageHandler extends Handler
     private function _getController()
     {
         $plugin = $this->_getPlugin();
-        $plugin->import('classes.IndexingPageManagerAdminController');
         return new IndexingPageManagerAdminController($plugin);
     }
 
@@ -100,7 +104,6 @@ class IndexingPageManagerManageHandler extends Handler
     {
         $plugin = $this->_getPlugin();
         $tm = TemplateManager::getManager($request);
-        $plugin->import('classes.IndexingPageManagerSmartyHelper');
         IndexingPageManagerSmartyHelper::register($tm, $plugin);
     }
 
@@ -129,9 +132,9 @@ class IndexingPageManagerManageHandler extends Handler
         $contextPath = $context ? $context->getPath() : null;
 
         $homeUrl = $request->getDispatcher()->url(
-            $request, ROUTE_PAGE, $contextPath, 'indexingPageManager', 'indexes'
+            $request, PKPApplication::ROUTE_PAGE, $contextPath, 'indexingPageManager', 'indexes'
         );
-        $csrfToken = $request->getSession()->getCSRFToken();
+        $csrfToken = \APP\plugins\generic\indexingPageManager\classes\IpmCompat::csrfToken($request);
 
         // Build the JS bootstrap payload server-side and inject it via a JSON
         // data island — avoids the |escape:'javascript' failure mode where
@@ -185,7 +188,7 @@ class IndexingPageManagerManageHandler extends Handler
     public function index($args, $request)
     {
         $request->redirectUrl(
-            $request->getDispatcher()->url($request, ROUTE_PAGE, null, 'indexingPageManager', 'indexes')
+            $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, 'indexingPageManager', 'indexes')
         );
     }
 
@@ -276,7 +279,6 @@ class IndexingPageManagerManageHandler extends Handler
         $contextId = $this->_currentContextId($request);
         $indexId   = (int) $request->getUserVar('indexId') ?: null;
 
-        $plugin->import('classes.form.IpmIndexForm');
         $form = new IpmIndexForm($plugin, $contextId, $indexId);
         $form->readInputData();
 
@@ -293,7 +295,7 @@ class IndexingPageManagerManageHandler extends Handler
         return $this->_emit([
             'ok'       => true,
             'redirect' => $request->getDispatcher()->url(
-                $request, ROUTE_PAGE,
+                $request, PKPApplication::ROUTE_PAGE,
                 $request->getContext() ? $request->getContext()->getPath() : null,
                 'indexingPageManager', 'indexes'
             ),
@@ -328,7 +330,6 @@ class IndexingPageManagerManageHandler extends Handler
         $contextId = $this->_currentContextId($request);
         $sectionId = (int) $request->getUserVar('sectionId') ?: null;
 
-        $plugin->import('classes.form.IpmSectionForm');
         $form = new IpmSectionForm($plugin, $contextId, $sectionId);
         $form->readInputData();
 
@@ -345,7 +346,7 @@ class IndexingPageManagerManageHandler extends Handler
         return $this->_emit([
             'ok'       => true,
             'redirect' => $request->getDispatcher()->url(
-                $request, ROUTE_PAGE,
+                $request, PKPApplication::ROUTE_PAGE,
                 $request->getContext() ? $request->getContext()->getPath() : null,
                 'indexingPageManager', 'sections'
             ),
@@ -379,7 +380,6 @@ class IndexingPageManagerManageHandler extends Handler
         $plugin    = $this->_getPlugin();
         $contextId = $this->_currentContextId($request);
 
-        $plugin->import('classes.form.IpmTemplateForm');
         $form = new IpmTemplateForm($plugin, $contextId);
         $form->readInputData();
 
@@ -410,7 +410,6 @@ class IndexingPageManagerManageHandler extends Handler
         $plugin    = $this->_getPlugin();
         $contextId = $this->_currentContextId($request);
 
-        $plugin->import('classes.form.IpmSettingsForm');
         $form = new IpmSettingsForm($plugin, $contextId);
         $form->readInputData();
 
@@ -442,7 +441,7 @@ class IndexingPageManagerManageHandler extends Handler
             throw new \Exception('POST required');
         }
         $session = $request->getSession();
-        $expected = $session ? $session->getCSRFToken() : null;
+        $expected = $session ? \APP\plugins\generic\indexingPageManager\classes\IpmCompat::csrfToken($request) : null;
         $supplied = (string) $request->getUserVar('csrfToken');
         if (!$expected || !hash_equals($expected, $supplied)) {
             throw new \Exception('Invalid CSRF token');

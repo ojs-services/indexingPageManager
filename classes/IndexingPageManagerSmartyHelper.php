@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IndexingPageManagerSmartyHelper.inc.php
+ * @file classes/IndexingPageManagerSmartyHelper.php
  *
  * Indexing Page Manager — Smarty helper registry.
  *
@@ -13,8 +13,10 @@
  *   {ipm_blocks}                          ← theme embed: ready-made logo strip
  */
 
-import('plugins.generic.indexingPageManager.classes.IpmLogoStore');
-import('plugins.generic.indexingPageManager.classes.IndexingPageManagerUrlSanitizer');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use APP\core\Application;
+use PKP\db\DAORegistry;
 
 class IndexingPageManagerSmartyHelper
 {

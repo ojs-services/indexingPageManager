@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/form/IpmSettingsForm.inc.php
+ * @file classes/form/IpmSettingsForm.php
  *
  * Indexing Page Manager — full settings form.
  *
@@ -13,11 +13,19 @@
  *   - enableSchemaOrg (bool)
  */
 
-import('lib.pkp.classes.form.Form');
-import('lib.pkp.classes.form.validation.FormValidatorPost');
-import('lib.pkp.classes.form.validation.FormValidatorCSRF');
-import('lib.pkp.classes.form.validation.FormValidatorInSet');
-import('lib.pkp.classes.form.validation.FormValidatorRegExp');
+namespace APP\plugins\generic\indexingPageManager\classes\form;
+
+use APP\core\Application;
+use APP\plugins\generic\indexingPageManager\IndexingPageManagerPlugin;
+use APP\template\TemplateManager;
+use PKP\core\PKPApplication;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\form\Form;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorInSet;
+use PKP\form\validation\FormValidatorPost;
+use PKP\form\validation\FormValidatorRegExp;
 
 class IpmSettingsForm extends Form
 {
@@ -98,7 +106,7 @@ class IpmSettingsForm extends Form
         $context = $request->getContext();
         $slug = $this->getData('pageSlug') ?: IndexingPageManagerPlugin::DEFAULT_SLUG;
         $publicUrl = $request->getDispatcher()->url(
-            $request, ROUTE_PAGE,
+            $request, PKPApplication::ROUTE_PAGE,
             $context ? $context->getPath() : null,
             'about', $slug
         );
@@ -107,8 +115,8 @@ class IpmSettingsForm extends Form
             'pluginName'       => $this->plugin->getName(),
             'sectionCount'     => $sectionCount,
             'supportedLocales' => $this->_supportedLocales(),
-            'primaryLocale'    => AppLocale::getPrimaryLocale(),
-            'localeNames'      => AppLocale::getAllLocales(),
+            'primaryLocale'    => Locale::getPrimaryLocale(),
+            'localeNames'      => Locale::getFormattedDisplayNames(),
             'templates'        => IndexingPageManagerPlugin::TEMPLATES,
             'columnOptions'    => IndexingPageManagerPlugin::COLUMN_OPTIONS,
             'publicUrl'        => $publicUrl,
@@ -135,7 +143,7 @@ class IpmSettingsForm extends Form
             $locales = $context->getSupportedFormLocales();
             if (!empty($locales)) return $locales;
         }
-        $supported = AppLocale::getSupportedLocales();
-        return $supported ? array_keys($supported) : [AppLocale::getPrimaryLocale()];
+        $supported = Locale::getSupportedLocales();
+        return $supported ? array_keys($supported) : [Locale::getPrimaryLocale()];
     }
 }

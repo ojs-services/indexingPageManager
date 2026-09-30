@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IpmLogoStore.inc.php
+ * @file classes/IpmLogoStore.php
  *
  * Indexing Page Manager — logo file helper.
  *
@@ -16,7 +16,10 @@
  * script execution under this directory.
  */
 
-import('classes.file.PublicFileManager');
+namespace APP\plugins\generic\indexingPageManager\classes;
+
+use APP\file\PublicFileManager;
+use PKP\config\Config;
 
 class IpmLogoStore
 {

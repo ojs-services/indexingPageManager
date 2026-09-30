@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IndexingPageManagerSchemaOrg.inc.php
+ * @file classes/IndexingPageManagerSchemaOrg.php
  *
  * Indexing Page Manager — Schema.org JSON-LD generator.
  *
@@ -9,8 +9,7 @@
  * page by IndexingPageManagerHandler when enableSchemaOrg is on.
  */
 
-import('plugins.generic.indexingPageManager.classes.IpmLogoStore');
-import('plugins.generic.indexingPageManager.classes.IndexingPageManagerUrlSanitizer');
+namespace APP\plugins\generic\indexingPageManager\classes;
 
 class IndexingPageManagerSchemaOrg
 {

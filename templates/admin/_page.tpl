@@ -36,19 +36,19 @@
 
     <nav class="ipm-tabs" aria-label="{translate key="plugins.generic.indexingPageManager.admin.tabs.ariaLabel"}">
         <div class="ipm-tabs-inner">
-            <a href="{url router=$smarty.const.ROUTE_PAGE page="indexingPageManager" op="indexes"}"
+            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="indexingPageManager" op="indexes"}"
                {if $requestedOp == 'indexes' || $requestedOp == 'indexForm'}class="is-active"{/if}>
                 {translate key="plugins.generic.indexingPageManager.action.manage"}
             </a>
-            <a href="{url router=$smarty.const.ROUTE_PAGE page="indexingPageManager" op="sections"}"
+            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="indexingPageManager" op="sections"}"
                {if $requestedOp == 'sections' || $requestedOp == 'sectionForm'}class="is-active"{/if}>
                 {translate key="plugins.generic.indexingPageManager.admin.sections.title"}
             </a>
-            <a href="{url router=$smarty.const.ROUTE_PAGE page="indexingPageManager" op="templates"}"
+            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="indexingPageManager" op="templates"}"
                {if $requestedOp == 'templates'}class="is-active"{/if}>
                 {translate key="plugins.generic.indexingPageManager.admin.templates.title"}
             </a>
-            <a href="{url router=$smarty.const.ROUTE_PAGE page="indexingPageManager" op="settings"}"
+            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="indexingPageManager" op="settings"}"
                {if $requestedOp == 'settings'}class="is-active"{/if}>
                 {translate key="manager.plugins.settings"}
             </a>

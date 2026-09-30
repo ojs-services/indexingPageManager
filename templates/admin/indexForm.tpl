@@ -20,7 +20,7 @@
         function boot() {
             if (window.ipmSubmitWithFiles) {
                 window.ipmSubmitWithFiles('#indexingPageManagerIndexForm', {
-                    successUrl: '{url router=$smarty.const.ROUTE_PAGE page="indexingPageManager" op="indexes" escape=false}',
+                    successUrl: '{url router=PKP\core\PKPApplication::ROUTE_PAGE page="indexingPageManager" op="indexes" escape=false}',
                     successMessage: '{translate key="plugins.generic.indexingPageManager.admin.indexForm.saved"|escape:"javascript"}',
                     savingText: '{translate key="common.saving"|escape:"javascript"}',
                     formHost: '#ipmBody'
@@ -41,7 +41,7 @@
     id="indexingPageManagerIndexForm"
     method="post"
     enctype="multipart/form-data"
-    action="{url router=$smarty.const.ROUTE_PAGE page="indexingPageManager" op="indexSave" escape=false}"
+    action="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="indexingPageManager" op="indexSave" escape=false}"
 >
     {csrf}
 

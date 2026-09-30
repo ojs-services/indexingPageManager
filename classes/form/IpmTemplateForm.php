@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/form/IpmTemplateForm.inc.php
+ * @file classes/form/IpmTemplateForm.php
  *
  * Indexing Page Manager — display template + column selector form.
  *
@@ -8,10 +8,14 @@
  * (3 / 4 / 5). Persists to the displayTemplate + displayColumns settings.
  */
 
-import('lib.pkp.classes.form.Form');
-import('lib.pkp.classes.form.validation.FormValidatorPost');
-import('lib.pkp.classes.form.validation.FormValidatorCSRF');
-import('lib.pkp.classes.form.validation.FormValidatorInSet');
+namespace APP\plugins\generic\indexingPageManager\classes\form;
+
+use APP\plugins\generic\indexingPageManager\IndexingPageManagerPlugin;
+use APP\template\TemplateManager;
+use PKP\form\Form;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorInSet;
+use PKP\form\validation\FormValidatorPost;
 
 class IpmTemplateForm extends Form
 {

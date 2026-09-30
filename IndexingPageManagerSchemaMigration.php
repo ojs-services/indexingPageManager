@@ -1,6 +1,6 @@
 <?php
 /**
- * @file IndexingPageManagerSchemaMigration.inc.php
+ * @file IndexingPageManagerSchemaMigration.php
  *
  * Indexing Page Manager — schema migration (OJS 3.3 / Laravel-style).
  * Distributed under the GNU GPL v2. For full terms see the file LICENSE.
@@ -12,17 +12,20 @@
  *        wires this up via getInstallMigration().
  */
 
+namespace APP\plugins\generic\indexingPageManager;
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class IndexingPageManagerSchemaMigration extends Migration
 {
     public function up()
     {
         // 1) Indexes — main records, one row per index per journal.
-        if (!Capsule::schema()->hasTable('ipm_indexes')) {
-            Capsule::schema()->create('ipm_indexes', function (Blueprint $table) {
+        if (!Schema::hasTable('ipm_indexes')) {
+            Schema::create('ipm_indexes', function (Blueprint $table) {
                 $table->bigInteger('index_id')->autoIncrement();
                 $table->bigInteger('journal_id');
                 $table->string('logo_path', 255)->nullable();
@@ -37,8 +40,8 @@ class IndexingPageManagerSchemaMigration extends Migration
 
         // 2) Index settings — multilingual (name, description).
         // setting_type is required by OJS DAO::updateDataObjectSettings (replace/upsert).
-        if (!Capsule::schema()->hasTable('ipm_index_settings')) {
-            Capsule::schema()->create('ipm_index_settings', function (Blueprint $table) {
+        if (!Schema::hasTable('ipm_index_settings')) {
+            Schema::create('ipm_index_settings', function (Blueprint $table) {
                 $table->bigInteger('index_id');
                 $table->string('locale', 14)->default('');
                 $table->string('setting_name', 255);
@@ -47,15 +50,15 @@ class IndexingPageManagerSchemaMigration extends Migration
                 $table->index(['index_id'], 'ipm_index_settings_index');
                 $table->unique(['index_id', 'locale', 'setting_name'], 'ipm_index_settings_pkey');
             });
-        } elseif (!Capsule::schema()->hasColumn('ipm_index_settings', 'setting_type')) {
-            Capsule::schema()->table('ipm_index_settings', function (Blueprint $table) {
+        } elseif (!Schema::hasColumn('ipm_index_settings', 'setting_type')) {
+            Schema::table('ipm_index_settings', function (Blueprint $table) {
                 $table->string('setting_type', 6)->nullable()->after('setting_value')->comment('(bool|int|float|string|object)');
             });
         }
 
         // 3) Sections — built-in seed + custom; one row per section per journal.
-        if (!Capsule::schema()->hasTable('ipm_sections')) {
-            Capsule::schema()->create('ipm_sections', function (Blueprint $table) {
+        if (!Schema::hasTable('ipm_sections')) {
+            Schema::create('ipm_sections', function (Blueprint $table) {
                 $table->bigInteger('section_id')->autoIncrement();
                 $table->bigInteger('journal_id');
                 $table->string('slug', 100);
@@ -69,8 +72,8 @@ class IndexingPageManagerSchemaMigration extends Migration
         }
 
         // 4) Section settings — multilingual displayName.
-        if (!Capsule::schema()->hasTable('ipm_section_settings')) {
-            Capsule::schema()->create('ipm_section_settings', function (Blueprint $table) {
+        if (!Schema::hasTable('ipm_section_settings')) {
+            Schema::create('ipm_section_settings', function (Blueprint $table) {
                 $table->bigInteger('section_id');
                 $table->string('locale', 14)->default('');
                 $table->string('setting_name', 255);
@@ -79,15 +82,15 @@ class IndexingPageManagerSchemaMigration extends Migration
                 $table->index(['section_id'], 'ipm_section_settings_section');
                 $table->unique(['section_id', 'locale', 'setting_name'], 'ipm_section_settings_pkey');
             });
-        } elseif (!Capsule::schema()->hasColumn('ipm_section_settings', 'setting_type')) {
-            Capsule::schema()->table('ipm_section_settings', function (Blueprint $table) {
+        } elseif (!Schema::hasColumn('ipm_section_settings', 'setting_type')) {
+            Schema::table('ipm_section_settings', function (Blueprint $table) {
                 $table->string('setting_type', 6)->nullable()->after('setting_value')->comment('(bool|int|float|string|object)');
             });
         }
 
         // 5) Pivot — many-to-many index<->section with per-section sequence.
-        if (!Capsule::schema()->hasTable('ipm_index_section')) {
-            Capsule::schema()->create('ipm_index_section', function (Blueprint $table) {
+        if (!Schema::hasTable('ipm_index_section')) {
+            Schema::create('ipm_index_section', function (Blueprint $table) {
                 $table->bigInteger('index_id');
                 $table->bigInteger('section_id');
                 $table->integer('seq')->default(0);
@@ -128,10 +131,10 @@ class IndexingPageManagerSchemaMigration extends Migration
             'ipm_section_settings',
             'ipm_index_section',
         ];
-        $conn = Capsule::connection();
+        $conn = DB::connection();
         foreach ($tables as $t) {
             try {
-                if (!Capsule::schema()->hasTable($t)) continue;
+                if (!Schema::hasTable($t)) continue;
                 $conn->statement("ALTER TABLE `$t` ENGINE=InnoDB");
             } catch (\Throwable $e) {
                 error_log('[indexingPageManager] could not convert ' . $t . ' to InnoDB: ' . $e->getMessage());
@@ -145,7 +148,7 @@ class IndexingPageManagerSchemaMigration extends Migration
      */
     private function _cleanupOrphansBeforeFk()
     {
-        $conn = Capsule::connection();
+        $conn = DB::connection();
         try {
             $conn->statement(
                 "DELETE FROM ipm_index_settings
@@ -177,8 +180,8 @@ class IndexingPageManagerSchemaMigration extends Migration
     private function _addForeignKeysIfMissing()
     {
         try {
-            if (Capsule::schema()->hasTable('ipm_index_settings')) {
-                Capsule::schema()->table('ipm_index_settings', function (Blueprint $t) {
+            if (Schema::hasTable('ipm_index_settings')) {
+                Schema::table('ipm_index_settings', function (Blueprint $t) {
                     $t->foreign('index_id', 'ipm_is_index_fk')
                       ->references('index_id')->on('ipm_indexes')
                       ->onDelete('cascade');
@@ -187,8 +190,8 @@ class IndexingPageManagerSchemaMigration extends Migration
         } catch (\Throwable $e) { /* already exists */ }
 
         try {
-            if (Capsule::schema()->hasTable('ipm_section_settings')) {
-                Capsule::schema()->table('ipm_section_settings', function (Blueprint $t) {
+            if (Schema::hasTable('ipm_section_settings')) {
+                Schema::table('ipm_section_settings', function (Blueprint $t) {
                     $t->foreign('section_id', 'ipm_ss_section_fk')
                       ->references('section_id')->on('ipm_sections')
                       ->onDelete('cascade');
@@ -197,8 +200,8 @@ class IndexingPageManagerSchemaMigration extends Migration
         } catch (\Throwable $e) { /* already exists */ }
 
         try {
-            if (Capsule::schema()->hasTable('ipm_index_section')) {
-                Capsule::schema()->table('ipm_index_section', function (Blueprint $t) {
+            if (Schema::hasTable('ipm_index_section')) {
+                Schema::table('ipm_index_section', function (Blueprint $t) {
                     $t->foreign('index_id', 'ipm_xs_index_fk')
                       ->references('index_id')->on('ipm_indexes')
                       ->onDelete('cascade');
@@ -207,8 +210,8 @@ class IndexingPageManagerSchemaMigration extends Migration
         } catch (\Throwable $e) { /* already exists */ }
 
         try {
-            if (Capsule::schema()->hasTable('ipm_index_section')) {
-                Capsule::schema()->table('ipm_index_section', function (Blueprint $t) {
+            if (Schema::hasTable('ipm_index_section')) {
+                Schema::table('ipm_index_section', function (Blueprint $t) {
                     $t->foreign('section_id', 'ipm_xs_section_fk')
                       ->references('section_id')->on('ipm_sections')
                       ->onDelete('cascade');
@@ -219,10 +222,10 @@ class IndexingPageManagerSchemaMigration extends Migration
 
     public function down()
     {
-        Capsule::schema()->dropIfExists('ipm_index_section');
-        Capsule::schema()->dropIfExists('ipm_section_settings');
-        Capsule::schema()->dropIfExists('ipm_sections');
-        Capsule::schema()->dropIfExists('ipm_index_settings');
-        Capsule::schema()->dropIfExists('ipm_indexes');
+        Schema::dropIfExists('ipm_index_section');
+        Schema::dropIfExists('ipm_section_settings');
+        Schema::dropIfExists('ipm_sections');
+        Schema::dropIfExists('ipm_index_settings');
+        Schema::dropIfExists('ipm_indexes');
     }
 }

@@ -243,7 +243,7 @@ msgid "plugins.generic.indexingPageManager.admin.indexForm.description"
 msgstr "Short description (optional)"
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.descriptionHelp"
-msgstr "Shown beneath the logo when the \"Logos + names\" template is active. Plain text; HTML is stripped."
+msgstr "Shown beneath the logo in the templates that include a description. Plain text; HTML is stripped."
 
 msgid "plugins.generic.indexingPageManager.admin.indexForm.link"
 msgstr "External link"
