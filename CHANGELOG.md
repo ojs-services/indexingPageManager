@@ -3,6 +3,13 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.5 — 2026-11-08 (OJS 3.4 + 3.5)
+
+- **Safe on the wrong OJS line.** If this OJS 3.4/3.5 build is installed on OJS 3.3
+  by mistake, it no longer errors or breaks the command-line tools. On OJS 3.3 it
+  loads an inert placeholder (no hooks) that shows in the plugin list which package
+  to install instead.
+
 ## 2.0.0.3 — 2026-09-27 (OJS 3.4 + 3.5)
 
 - **Spanish, Arabic and Russian.** The plugin now ships in five languages
