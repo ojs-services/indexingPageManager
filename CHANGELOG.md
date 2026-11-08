@@ -3,6 +3,12 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 1.0.0.1 — 2026-11-08 (OJS 3.3)
+
+- **Safe on the wrong OJS line.** If this OJS 3.3 build is installed on OJS 3.4/3.5
+  by mistake, it now returns quietly in `index.php` instead of loading, so the
+  site and its command-line tools keep working.
+
 ## 1.0.0.0 — 2026-09-30 (OJS 3.3)
 
 Stable release of the OJS 3.3 line — no functional change from 0.1.15. The

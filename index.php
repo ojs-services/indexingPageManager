@@ -16,6 +16,14 @@
  *        to appear in the plugin manager list.
  */
 
+// Line guard: this build targets OJS 3.3, whose plugin class uses the global,
+// non-namespaced GenericPlugin. On OJS 3.4+ the core is namespaced; if the
+// namespaced plugin base exists we are on the wrong line, so return quietly and
+// let OJS skip this plugin instead of risking an error on the site or CLI tools.
+if (class_exists('PKP\plugins\GenericPlugin')) {
+    return;
+}
+
 require_once('IndexingPageManagerPlugin.inc.php');
 
 return new IndexingPageManagerPlugin();

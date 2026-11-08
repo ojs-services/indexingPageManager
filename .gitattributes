@@ -1,0 +1,9 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+screenshots/ export-ignore
+demo-data/ export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
