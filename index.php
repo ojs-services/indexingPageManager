@@ -23,6 +23,7 @@
 
 if (!class_exists('PKP\\plugins\\GenericPlugin')) {
     // OJS 3.3: wrong package.
+    // tara-yoksay: P04 — import() runs only on OJS 3.3 (this wrong-line branch); import() exists there.
     import('lib.pkp.classes.plugins.GenericPlugin');
     if (!class_exists('IndexingPageManagerPlugin', false)) {
         class IndexingPageManagerPlugin extends GenericPlugin

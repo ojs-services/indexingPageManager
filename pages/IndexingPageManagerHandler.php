@@ -117,7 +117,7 @@ class IndexingPageManagerHandler extends Handler
         $tm->addStyleSheet(
             'ipmFrontendGrid',
             $base . '/styles/compiled/frontend-grid.css' . $versionTag,
-            ['contexts' => 'frontend', 'priority' => STYLE_SEQUENCE_LATE]
+            ['contexts' => 'frontend', 'priority' => TemplateManager::STYLE_SEQUENCE_LATE]
         );
 
         $pluginRes = $plugin->getTemplateResource('');

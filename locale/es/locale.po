@@ -110,7 +110,7 @@ msgid "plugins.generic.indexingPageManager.settings.pageSlug"
 msgstr "Slug de la URL"
 
 msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
-msgstr "La página se publica en /about/<slug>. Valor predeterminado: databases."
+msgstr "La página se publica en /about/[slug]. Valor predeterminado: databases."
 
 msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
 msgstr "El slug debe empezar por una letra y contener solo letras, números y guiones."

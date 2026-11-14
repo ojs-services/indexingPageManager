@@ -13,13 +13,13 @@ msgstr ""
 # Plugin metadata --------------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.name"
-msgstr "Dizinleme Sayfası Yöneticisi"
+msgstr "İndeksleme Sayfası Yöneticisi"
 
 msgid "plugins.generic.indexingPageManager.description"
 msgstr "Derginizin yer aldığı dizinleme veritabanlarının, keşif servislerinin ve yayıncılık platformlarının modern bir vitrini — tek bir yönetim panelinden yönetilir, özel bir sayfada gösterilir veya temanıza gömülür."
 
 msgid "plugins.generic.indexingPageManager.action.manage"
-msgstr "Dizinleme Sayfasını Yönet"
+msgstr "İndeksleme Sayfasını Yönet"
 
 # Navigation menu integration --------------------------------------------
 
@@ -27,7 +27,7 @@ msgid "plugins.generic.indexingPageManager.navMenuItem.title"
 msgstr "İndeksler ve Veritabanları sayfası"
 
 msgid "plugins.generic.indexingPageManager.navMenuItem.description"
-msgstr "Derginizin dizinlendiği veritabanları ve platformları gösteren Dizinleme Sayfası vitrinine bağlanır."
+msgstr "Derginizin dizinlendiği veritabanları ve platformları gösteren İndeksleme Sayfası vitrinine bağlanır."
 
 # Frontend ---------------------------------------------------------------
 
@@ -89,7 +89,7 @@ msgstr "Lütfen mevcut şablonlardan birini seçin."
 # Settings page ----------------------------------------------------------
 
 msgid "plugins.generic.indexingPageManager.settings.title"
-msgstr "Dizinleme Sayfası Yöneticisi — Ayarlar"
+msgstr "İndeksleme Sayfası Yöneticisi — Ayarlar"
 
 msgid "plugins.generic.indexingPageManager.settings.section.page"
 msgstr "Sayfa"
@@ -110,7 +110,7 @@ msgid "plugins.generic.indexingPageManager.settings.pageSlug"
 msgstr "URL kısaltması"
 
 msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
-msgstr "Sayfa /about/<kısaltma> adresinde yayınlanır. Varsayılan: databases."
+msgstr "Sayfa /about/[kısaltma] adresinde yayınlanır. Varsayılan: databases."
 
 msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
 msgstr "Kısaltma bir harfle başlamalı ve yalnızca harf, rakam ve tire içermelidir."

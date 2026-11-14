@@ -3,6 +3,16 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.6 — 2026-11-14 (OJS 3.4 + 3.5)
+
+- **Clearer admin wording.** Fixed the page-address hint (the URL slug
+  placeholder no longer disappears). The Turkish interface now uses one term,
+  "İndeks", throughout.
+- **Built-in sections.** The Delete button is hidden for the four built-in
+  sections, which already cannot be deleted.
+- **OJS strict mode.** Replaced two legacy global constants with class constants
+  so the public and admin pages work when `strict = On` in config.inc.php.
+
 ## 2.0.0.5 — 2026-11-08 (OJS 3.4 + 3.5)
 
 - **Safe on the wrong OJS line.** If this OJS 3.4/3.5 build is installed on OJS 3.3

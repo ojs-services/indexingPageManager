@@ -28,9 +28,15 @@ class IndexingPageManagerSmartyHelper
         if (self::$registered) return;
         self::$registered = true;
 
-        $templateMgr->registerPlugin('modifier', 'ipm_safe_url',  [self::class, 'safeUrl']);
-        $templateMgr->registerPlugin('function', 'ipm_logo_url',  [self::class, 'logoUrlFunction']);
-        $templateMgr->registerPlugin('function', 'ipm_blocks',    [self::class, 'blocksFunction']);
+        if (!isset($templateMgr->registered_plugins['modifier']['ipm_safe_url'])) {
+            try { $templateMgr->registerPlugin('modifier', 'ipm_safe_url', [self::class, 'safeUrl']); } catch (\Exception $e) {}
+        }
+        if (!isset($templateMgr->registered_plugins['function']['ipm_logo_url'])) {
+            try { $templateMgr->registerPlugin('function', 'ipm_logo_url', [self::class, 'logoUrlFunction']); } catch (\Exception $e) {}
+        }
+        if (!isset($templateMgr->registered_plugins['function']['ipm_blocks'])) {
+            try { $templateMgr->registerPlugin('function', 'ipm_blocks', [self::class, 'blocksFunction']); } catch (\Exception $e) {}
+        }
     }
 
     /** Test seam — used by tests to reset between assertions. */

@@ -72,7 +72,7 @@ class IndexingPageManagerManageHandler extends Handler
 
     public function authorize($request, &$args, $roleAssignments)
     {
-        $rolePolicy = new PolicySet(COMBINING_PERMIT_OVERRIDES);
+        $rolePolicy = new PolicySet(PolicySet::COMBINING_PERMIT_OVERRIDES);
         $rolePolicy->addPolicy(new PKPSiteAccessPolicy($request, null, $roleAssignments));
         $rolePolicy->addPolicy(new ContextAccessPolicy($request, $roleAssignments));
         $this->addPolicy($rolePolicy);

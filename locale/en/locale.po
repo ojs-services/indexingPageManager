@@ -110,7 +110,7 @@ msgid "plugins.generic.indexingPageManager.settings.pageSlug"
 msgstr "URL slug"
 
 msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
-msgstr "The page is mounted at /about/<slug>. Default: databases."
+msgstr "The page is mounted at /about/[slug]. Default: databases."
 
 msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
 msgstr "Slug must start with a letter and contain only letters, digits and hyphens."

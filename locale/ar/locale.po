@@ -110,7 +110,7 @@ msgid "plugins.generic.indexingPageManager.settings.pageSlug"
 msgstr "المسار المختصر في الرابط"
 
 msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
-msgstr "تُتاح الصفحة على المسار /about/<slug>. القيمة الافتراضية: databases."
+msgstr "تُتاح الصفحة على المسار /about/[slug]. القيمة الافتراضية: databases."
 
 msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
 msgstr "يجب أن يبدأ المسار المختصر بحرف وألا يتضمن إلا حروفًا وأرقامًا وشرطات."

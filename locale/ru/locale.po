@@ -110,7 +110,7 @@ msgid "plugins.generic.indexingPageManager.settings.pageSlug"
 msgstr "Адрес страницы (slug)"
 
 msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
-msgstr "Страница доступна по адресу /about/<slug>. По умолчанию: databases."
+msgstr "Страница доступна по адресу /about/[slug]. По умолчанию: databases."
 
 msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
 msgstr "Адрес должен начинаться с буквы и содержать только буквы, цифры и дефисы."
