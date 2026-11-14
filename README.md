@@ -114,7 +114,7 @@ Her şey derginizin yönetim panelinden yönetilir. **Kod bilgisi gerektirmez.**
 
 ## Kullanım
 
-Etkinleştirince yönetim menünüzde **İndeksleme Sayfası** girişi belirir. Dizinlerinizi oradan ekleyip düzenlersiniz.
+Etkinleştirince yönetim menünüzde **İndeksleme Sayfasını Yönet** girişi belirir. Dizinlerinizi oradan ekleyip düzenlersiniz.
 
 Genel sayfanız `/about/databases` adresindedir (adresi değiştirebilirsiniz). Menünüze eklemek için *Ayarlar → Web Sitesi → Kurulum → Gezinme Menüleri → Öğe Ekle* yolunu izleyip hazır **“İndeksler ve Veritabanları sayfası”** öğesini seçin — elle bağlantı eklemenize gerek yok.
 

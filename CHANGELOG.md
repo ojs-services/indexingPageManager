@@ -3,6 +3,15 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 1.0.0.2 — 2026-11-14 (OJS 3.3)
+
+- **Clearer admin wording.** Fixed the "Short description" help text (it named a
+  display option that does not exist) and the page-address hint (the URL slug
+  placeholder no longer disappears). The Turkish interface now uses one term,
+  "İndeks", throughout.
+- **Built-in sections.** The Delete button is hidden for the four built-in
+  sections, which already cannot be deleted.
+
 ## 1.0.0.1 — 2026-11-08 (OJS 3.3)
 
 - **Safe on the wrong OJS line.** If this OJS 3.3 build is installed on OJS 3.4/3.5

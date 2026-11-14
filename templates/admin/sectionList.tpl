@@ -78,11 +78,6 @@
                                     data-section-name="{$section->getDisplayName()|escape}">
                                 {translate key="common.delete"}
                             </button>
-                        {else}
-                            <button type="button" class="ipm-btn ipm-btn-small" disabled
-                                    title="{translate key='plugins.generic.indexingPageManager.admin.sections.error.cannotDeleteBuiltIn'}">
-                                {translate key="common.delete"}
-                            </button>
                         {/if}
                     </div>
                 </div>
