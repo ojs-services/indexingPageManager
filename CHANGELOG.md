@@ -3,6 +3,12 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 1.0.0.4 — 2026-11-21 (OJS 3.3)
+
+- **Ukrainian translation** contributed by Petro (ejournal.kpi.ua). The plugin now
+  ships in English, Turkish and Ukrainian.
+- Declared OJS version compatibility in `version.xml`.
+
 ## 1.0.0.2 — 2026-11-14 (OJS 3.3)
 
 - **Clearer admin wording.** Fixed the "Short description" help text (it named a
