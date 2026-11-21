@@ -1,0 +1,382 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Indexing Page Manager 0.1.13\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-15T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-11-20T00:00:00+00:00\n"
+"Last-Translator: Petro (ejournal.kpi.ua)\n"
+"Language-Team: uk <translate@ojs-services.com>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+# Plugin metadata --------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.name"
+msgstr "Менеджер сторінки індексації"
+
+msgid "plugins.generic.indexingPageManager.description"
+msgstr "Сучасна вітрина баз даних індексації, сервісів відкриття та видавничих платформ, з якими працює ваш журнал — керується з єдиної адмін-панелі, відображається на окремій сторінці або вбудовується в тему."
+
+msgid "plugins.generic.indexingPageManager.action.manage"
+msgstr "Керувати сторінкою індексації"
+
+# Navigation menu integration --------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.navMenuItem.title"
+msgstr "Сторінка індексів і баз даних"
+
+msgid "plugins.generic.indexingPageManager.navMenuItem.description"
+msgstr "Посилання на вітрину Indexing Page Manager з базами даних і платформами, в яких індексується журнал."
+
+# Frontend ---------------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.frontend.defaultTitle"
+msgstr "Індекси та бази даних"
+
+# Built-in sections (slugs immutable; labels editable per locale) ---------
+
+msgid "plugins.generic.indexingPageManager.builtIn.indexing-and-abstracting"
+msgstr "Індексація та реферування"
+
+msgid "plugins.generic.indexingPageManager.builtIn.discovery-and-search"
+msgstr "Відкриття та пошук"
+
+msgid "plugins.generic.indexingPageManager.builtIn.identifiers-and-registration"
+msgstr "Ідентифікатори та реєстрація"
+
+msgid "plugins.generic.indexingPageManager.builtIn.archiving-and-preservation"
+msgstr "Архівування та збереження"
+
+# Display template + columns ---------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate"
+msgstr "Шаблон відображення"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logos"
+msgstr "Тільки логотипи"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logos.desc"
+msgstr "Чиста сітка однакових плиток з логотипами без підписів."
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name"
+msgstr "Логотип + назва"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name.desc"
+msgstr "Під кожним логотипом відображається назва індексу."
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name-desc"
+msgstr "Логотип + назва + опис"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-name-desc.desc"
+msgstr "Логотип, назва індексу та короткий опис."
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-desc"
+msgstr "Логотип + опис"
+
+msgid "plugins.generic.indexingPageManager.settings.displayTemplate.logo-desc.desc"
+msgstr "Логотип з коротким описом без назви."
+
+msgid "plugins.generic.indexingPageManager.settings.displayColumns"
+msgstr "Колонки"
+
+msgid "plugins.generic.indexingPageManager.settings.displayColumnsHelp"
+msgstr "Логотипи автоматично масштабуються. На малих екранах сітка зменшує кількість колонок."
+
+msgid "plugins.generic.indexingPageManager.template.error.invalid"
+msgstr "Будь ласка, оберіть один із доступних шаблонів."
+
+# Settings page ----------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.settings.title"
+msgstr "Менеджер сторінки індексації — Налаштування"
+
+msgid "plugins.generic.indexingPageManager.settings.section.page"
+msgstr "Сторінка"
+
+msgid "plugins.generic.indexingPageManager.settings.section.display"
+msgstr "Відображення"
+
+msgid "plugins.generic.indexingPageManager.settings.section.seo"
+msgstr "SEO"
+
+msgid "plugins.generic.indexingPageManager.settings.pageTitle"
+msgstr "Заголовок сторінки"
+
+msgid "plugins.generic.indexingPageManager.settings.introText"
+msgstr "Вступний текст (під заголовком)"
+
+msgid "plugins.generic.indexingPageManager.settings.pageSlug"
+msgstr "URL-слуг"
+
+msgid "plugins.generic.indexingPageManager.settings.pageSlugHelp"
+msgstr "Сторінка доступна за адресою /about/[slug]. За замовчуванням: databases."
+
+msgid "plugins.generic.indexingPageManager.settings.error.pageSlug"
+msgstr "Слуг має починатися з літери і містити лише літери, цифри та дефіси."
+
+msgid "plugins.generic.indexingPageManager.settings.enableSchemaOrg"
+msgstr "Вбудовувати Schema.org JSON-LD для SEO"
+
+msgid "plugins.generic.indexingPageManager.settings.enableSchemaOrgHelp"
+msgstr "Додає скрипт структурованих даних (CollectionPage з записами Organization), який допомагає пошуковим системам розуміти, які бази даних індексують ваш журнал."
+
+msgid "plugins.generic.indexingPageManager.settings.status.heading"
+msgstr "Статус плагіна"
+
+msgid "plugins.generic.indexingPageManager.settings.status.activation"
+msgstr "Активація"
+
+msgid "plugins.generic.indexingPageManager.settings.status.enabled"
+msgstr "Увімкнено"
+
+msgid "plugins.generic.indexingPageManager.settings.status.toggleHint"
+msgstr "Для вимкнення або повторного увімкнення використовуйте Налаштування → Вебсайт → Плагіни."
+
+msgid "plugins.generic.indexingPageManager.settings.status.publicUrl"
+msgstr "Публічна сторінка"
+
+msgid "plugins.generic.indexingPageManager.settings.status.routeNote"
+msgstr "Поки плагін увімкнений, за цією URL-адресою відображається ваша вітрина. Ви також можете додати її до будь-якого меню навігації через Налаштування → Вебсайт → Меню навігації."
+
+# Admin — index list -----------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.title"
+msgstr "Індекси та бази даних"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.subtitle"
+msgstr "Керуйте базами даних, сервісами відкриття та платформами, з якими працює ваш журнал."
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.preview"
+msgstr "Попередній перегляд"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.addIndex"
+msgstr "Додати індекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.addToThis"
+msgstr "Додати до цього розділу"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.toggleActive"
+msgstr "Перемкнути активний стан"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.dragSection"
+msgstr "Перетягніть для зміни порядку розділу"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.dragIndex"
+msgstr "Перетягніть для зміни порядку індексу"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.sectionEmpty"
+msgstr "У цьому розділі ще немає індексів."
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.empty.title"
+msgstr "Поки що немає індексів"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.empty.body"
+msgstr "Почніть із додавання першої бази даних індексації."
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.total"
+msgstr "Всього індексів"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.active"
+msgstr "Активних"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.sections"
+msgstr "Заповнених розділів"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.template"
+msgstr "Активний шаблон"
+
+msgid "plugins.generic.indexingPageManager.admin.indexList.stats.cols"
+msgstr "кол."
+
+# Admin — index form -----------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.title"
+msgstr "Індекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.addTitle"
+msgstr "Додати індекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.editTitle"
+msgstr "Редагувати індекс"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.saved"
+msgstr "Індекс збережено."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logo"
+msgstr "Логотип"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoChoose"
+msgstr "Обрати логотип"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoRemove"
+msgstr "Видалити логотип"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoPlaceholder"
+msgstr "Логотип не завантажено"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.logoHelp"
+msgstr "Рекомендовано: горизонтальний логотип приблизно 400×150 px і менше ~100 КБ. Однаковий розмір усіх логотипів виглядає акуратніше і прискорює завантаження сторінки. Найкраще виглядає PNG з прозорим фоном; підтримуються JPG, PNG або WebP."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.status"
+msgstr "Статус"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.isActive"
+msgstr "Активний (видимий на публічній сторінці)"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.isActiveHelp"
+msgstr "Неактивні записи залишаються в базі даних, але не відображаються на сайті."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.sections"
+msgstr "Розділи"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.details"
+msgstr "Деталі індексу"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.detailsHelp"
+msgstr "Багатомовні поля — заповніть для кожної мови. Більшість назв індексів є брендовими і залишаються однаковими в усіх мовах."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.name"
+msgstr "Назва"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.description"
+msgstr "Короткий опис (необов’язково)"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.descriptionHelp"
+msgstr "Відображається під логотипом у шаблонах, які підтримують опис. Звичайний текст; HTML видаляється."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.link"
+msgstr "Зовнішнє посилання"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.url"
+msgstr "URL"
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.urlHelp"
+msgstr "Посилання на офіційний сайт індексу. Має починатися з http:// або https://."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.error.name"
+msgstr "Назва обов’язкова щонайменше для основної мови."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.error.sections"
+msgstr "Оберіть щонайменше один розділ."
+
+msgid "plugins.generic.indexingPageManager.admin.indexForm.error.url"
+msgstr "Введіть повну URL-адресу, що починається з http:// або https://."
+
+# Admin — sections -------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.sections.title"
+msgstr "Розділи"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.subtitle"
+msgstr "Вбудовані розділи не можна видалити, але їх можна перейменувати, змінити порядок або приховати."
+
+msgid "plugins.generic.indexingPageManager.admin.sections.backToIndexes"
+msgstr "Повернутися до індексів"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.addSection"
+msgstr "Додати розділ"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.builtIn"
+msgstr "Вбудований"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.custom"
+msgstr "Користувацький"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.inactive"
+msgstr "Прихований"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.empty.title"
+msgstr "Поки що немає розділів."
+
+msgid "plugins.generic.indexingPageManager.admin.sections.error.cannotDeleteBuiltIn"
+msgstr "Вбудовані розділи не можна видалити. Замість цього вимкніть їх активність, щоб приховати."
+
+# Admin — section form ---------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.title"
+msgstr "Розділ"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.addTitle"
+msgstr "Додати розділ"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.editTitle"
+msgstr "Редагувати розділ"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.saved"
+msgstr "Розділ збережено."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.displayName"
+msgstr "Назва для відображення"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.displayNameHelp"
+msgstr "Те, що бачать читачі як заголовок розділу. Перекладається для кожної мови."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.isActive"
+msgstr "Активний"
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.isActiveHelp"
+msgstr "Неактивні розділи приховані на публічній сторінці, навіть якщо в них є індекси."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.error.displayName"
+msgstr "Назва для відображення обов’язкова щонайменше для основної мови."
+
+msgid "plugins.generic.indexingPageManager.admin.sectionForm.error.slug"
+msgstr "Не вдалося згенерувати ідентифікатор з назви. Спочатку введіть назву для відображення."
+
+# Admin — template selector ----------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.templates.title"
+msgstr "Шаблон"
+
+msgid "plugins.generic.indexingPageManager.admin.templateSelector.title"
+msgstr "Оберіть шаблон відображення"
+
+msgid "plugins.generic.indexingPageManager.admin.templateSelector.help"
+msgstr "Оберіть макет, який побачать читачі, і кількість колонок з логотипами. Це можна змінити в будь-який момент."
+
+# Admin — shared ---------------------------------------------------------
+
+msgid "plugins.generic.indexingPageManager.admin.formError"
+msgstr "Будь ласка, виправте виділені поля та спробуйте ще раз."
+
+msgid "plugins.generic.indexingPageManager.admin.footer.developedBy"
+msgstr "Розроблено"
+
+msgid "plugins.generic.indexingPageManager.admin.js.requestFailed"
+msgstr "Запит не вдався. Спробуйте ще раз."
+
+msgid "plugins.generic.indexingPageManager.admin.js.deleteIndexConfirm"
+msgstr "Видалити «{$name}»? Цю дію не можна скасувати."
+
+msgid "plugins.generic.indexingPageManager.admin.js.deleteSectionConfirm"
+msgstr "Видалити розділ «{$name}»? Індекси в цьому розділі залишаться, але втратять прив’язку до нього."
+
+msgid "plugins.generic.indexingPageManager.admin.js.logoUploadFailed"
+msgstr "Не вдалося завантажити логотип. Спробуйте ще раз."
+
+msgid "plugins.generic.indexingPageManager.admin.js.saving"
+msgstr "Збереження…"
+
+msgid "plugins.generic.indexingPageManager.admin.js.saved"
+msgstr "Збережено."
+
+msgid "plugins.generic.indexingPageManager.admin.js.saveFailed"
+msgstr "Не вдалося зберегти. Спробуйте ще раз."
+
+msgid "plugins.generic.indexingPageManager.admin.js.networkError"
+msgstr "Помилка мережі. Спробуйте ще раз."
+
+msgid "plugins.generic.indexingPageManager.admin.error.invalidRequest"
+msgstr "Сесія закінчилася або запит недійсний. Перезавантажте сторінку та спробуйте ще раз."
+
+msgid "plugins.generic.indexingPageManager.admin.tabs.ariaLabel"
+msgstr "Розділи сторінки індексації"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.slugLabel"
+msgstr "Слуг розділу: {$slug}"
+
+msgid "plugins.generic.indexingPageManager.admin.sections.toggleActive"
+msgstr "Перемкнути активний стан"

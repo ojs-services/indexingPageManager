@@ -3,6 +3,12 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.8 — 2026-11-21 (OJS 3.4 + 3.5)
+
+- **Ukrainian translation** contributed by Petro (ejournal.kpi.ua). The plugin now
+  ships in English, Spanish, Turkish, Arabic, Russian and Ukrainian.
+- Declared OJS version compatibility in `version.xml`.
+
 ## 2.0.0.6 — 2026-11-14 (OJS 3.4 + 3.5)
 
 - **Clearer admin wording.** Fixed the page-address hint (the URL slug

@@ -12,8 +12,16 @@
 <version>
     <application>indexingPageManager</application>
     <type>plugins.generic</type>
-    <release>2.0.0.6</release>
-    <date>2026-11-14</date>
+    <release>2.0.0.8</release>
+    <date>2026-11-21</date>
     <lazy-load>1</lazy-load>
     <class>IndexingPageManagerPlugin</class>
+    <!-- The OJS lines this package targets: OJS 3.4 and 3.5 (3.4.0.x, 3.5.0.x). Each <version> is a
+         Composer-style constraint as OJS's compatibility check reads it (a bare "3.4.0" would match
+         3.4.0.0 only). OJS does not read this element on install; on OJS 3.3 the plugin loads an inert
+         placeholder (no hooks), so a wrong install does not break the site. -->
+    <compatibility application="ojs2">
+        <version>3.4.0.x</version>
+        <version>3.5.0.x</version>
+    </compatibility>
 </version>
