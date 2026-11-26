@@ -3,6 +3,15 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.10 — 2026-11-26 (OJS 3.4 + 3.5)
+
+- **Localized built-in section names and page heading.** The four built-in
+  section names and the default public-page heading now come from the plugin's
+  own locale files, so they appear in every bundled language (English, Spanish,
+  Turkish, Arabic, Russian, Ukrainian, Portuguese) rather than only English and
+  Turkish. On update, empty languages are filled in; a name an editor has
+  already set is never changed.
+
 ## 2.0.0.9 — 2026-11-26 (OJS 3.4 + 3.5)
 
 - **Portuguese.** Added European Portuguese (`pt_PT`, plus `pt` for OJS 3.5's
