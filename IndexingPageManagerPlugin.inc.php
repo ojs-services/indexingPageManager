@@ -463,28 +463,148 @@ class IndexingPageManagerPlugin extends GenericPlugin
 
         $existing = [];
         foreach ($dao->getByJournalId($journalId) as $section) {
-            $existing[$section->getSlug()] = true;
+            $existing[$section->getSlug()] = $section;
         }
 
-        $needed = array_column(self::BUILT_IN_SECTIONS, 'slug');
-        if (!array_diff($needed, array_keys($existing))) {
-            return;
-        }
+        $locales = $this->_pluginLocales();
 
         foreach (self::BUILT_IN_SECTIONS as $i => $row) {
-            if (isset($existing[$row['slug']])) {
+            $slug = $row['slug'];
+
+            if (isset($existing[$slug])) {
+                // Existing section: backfill ONLY empty locale names from the
+                // bundled locale files. Values the admin wrote or changed
+                // (including en_US/tr_TR) are non-empty and are never overwritten.
+                $section = $existing[$slug];
+                $names   = $section->getDisplayNames();
+                $missing = [];
+                foreach ($locales as $loc) {
+                    if (!isset($names[$loc]) || $names[$loc] === '') {
+                        $missing[] = $loc;
+                    }
+                }
+                if (!$missing) {
+                    continue; // fully localized — cheap no-op on later loads
+                }
+                $nameMap = $this->_builtInNameMap($slug, $row);
+                $changed = false;
+                foreach ($missing as $loc) {
+                    if (isset($nameMap[$loc])) {
+                        $section->setDisplayName($nameMap[$loc], $loc);
+                        $changed = true;
+                    }
+                }
+                if ($changed) {
+                    $dao->updateObject($section);
+                }
                 continue;
             }
+
+            // New section: create and fill every language the plugin ships.
+            $nameMap = $this->_builtInNameMap($slug, $row);
             $section = $dao->newDataObject();
             $section->setJournalId($journalId);
-            $section->setSlug($row['slug']);
+            $section->setSlug($slug);
             $section->setIsBuiltIn(true);
             $section->setIsActive(true);
             $section->setSeq($i);
-            $section->setDisplayName($row['en_US'], 'en_US');
-            $section->setDisplayName($row['tr_TR'], 'tr_TR');
+            foreach ($nameMap as $loc => $name) {
+                $section->setDisplayName($name, $loc);
+            }
             $dao->insertObject($section);
         }
+    }
+
+    /**
+     * Locale codes the plugin ships a translation for — one directory per code
+     * under locale/ that contains a locale.po. Cached per request.
+     */
+    private function _pluginLocales()
+    {
+        static $cache = null;
+        if ($cache !== null) {
+            return $cache;
+        }
+        $cache = [];
+        $base = $this->getPluginPath() . '/locale';
+        if (is_dir($base)) {
+            foreach (scandir($base) as $entry) {
+                if ($entry === '.' || $entry === '..') {
+                    continue;
+                }
+                if (is_file($base . '/' . $entry . '/locale.po')) {
+                    $cache[] = $entry;
+                }
+            }
+        }
+        return $cache;
+    }
+
+    /**
+     * Read one single-line message straight from the plugin's own
+     * locale/<locale>/locale.po, or null if absent. Deliberately file-based
+     * (not the Locale facade) so seeding defaults works for every bundled
+     * language regardless of which locales the site has installed. Cached.
+     */
+    private function _localePo($locale, $key)
+    {
+        static $files = [];
+        if (!array_key_exists($locale, $files)) {
+            $path = $this->getPluginPath() . '/locale/' . $locale . '/locale.po';
+            $files[$locale] = is_file($path) ? file_get_contents($path) : null;
+        }
+        if ($files[$locale] === null) {
+            return null;
+        }
+        $pattern = '/(?:^|\n)msgid "' . preg_quote($key, '/') . '"\r?\nmsgstr "((?:\\\\.|[^"\\\\])*)"/';
+        if (preg_match($pattern, $files[$locale], $m)) {
+            $value = strtr($m[1], ['\\n' => "\n", '\\t' => "\t", '\\"' => '"', '\\\\' => '\\']);
+            return $value !== '' ? $value : null;
+        }
+        return null;
+    }
+
+    /**
+     * {locale => name} for a built-in section's default display name, taken
+     * from the bundled locale files (builtIn.<slug>) for every shipped
+     * language. Falls back to the hard-coded labels only if a locale file
+     * lacks the key.
+     */
+    private function _builtInNameMap($slug, $fallbackRow = null)
+    {
+        $key = 'plugins.generic.indexingPageManager.builtIn.' . $slug;
+        $map = [];
+        foreach ($this->_pluginLocales() as $loc) {
+            $value = $this->_localePo($loc, $key);
+            if ($value !== null) {
+                $map[$loc] = $value;
+            }
+        }
+        if (empty($map) && $fallbackRow) {
+            foreach ($fallbackRow as $k => $v) {
+                if ($k !== 'slug') {
+                    $map[$k] = $v;
+                }
+            }
+        }
+        return $map;
+    }
+
+    /**
+     * {locale => title} for the default public page heading, from the bundled
+     * locale files (frontend.defaultTitle) for every shipped language.
+     */
+    private function _defaultTitleMap()
+    {
+        $key = 'plugins.generic.indexingPageManager.frontend.defaultTitle';
+        $map = [];
+        foreach ($this->_pluginLocales() as $loc) {
+            $value = $this->_localePo($loc, $key);
+            if ($value !== null) {
+                $map[$loc] = $value;
+            }
+        }
+        return $map;
     }
 
     /**
@@ -498,7 +618,6 @@ class IndexingPageManagerPlugin extends GenericPlugin
         if (!$journalId) return;
 
         $defaults = [
-            'pageTitle'       => ['object', ['en_US' => 'Indexes & Databases', 'tr_TR' => 'İndeksler ve Veritabanları']],
             'introText'       => ['object', ['en_US' => '', 'tr_TR' => '']],
             'pageSlug'        => ['string', self::DEFAULT_SLUG],
             'displayTemplate' => ['string', self::DEFAULT_TEMPLATE],
@@ -514,6 +633,27 @@ class IndexingPageManagerPlugin extends GenericPlugin
                     || (is_array($current) && empty($current));
             if ($isUnset) {
                 $this->updateSetting($journalId, $name, $value, $type);
+            }
+        }
+
+        // Page heading: backfill ONLY empty locales from the bundled locale
+        // files (frontend.defaultTitle), for every shipped language. A heading
+        // the admin already set in a locale is never overwritten.
+        $titleMap = $this->_defaultTitleMap();
+        if ($titleMap) {
+            $current = $this->getSetting($journalId, 'pageTitle');
+            if (!is_array($current)) {
+                $current = [];
+            }
+            $changed = false;
+            foreach ($titleMap as $loc => $title) {
+                if (!isset($current[$loc]) || $current[$loc] === '') {
+                    $current[$loc] = $title;
+                    $changed = true;
+                }
+            }
+            if ($changed) {
+                $this->updateSetting($journalId, 'pageTitle', $current, 'object');
             }
         }
     }
