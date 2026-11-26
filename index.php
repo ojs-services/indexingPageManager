@@ -21,7 +21,19 @@
  * and tells the administrator in the plugin list which package to install.
  */
 
-if (!class_exists('PKP\\plugins\\GenericPlugin')) {
+// Line guard (mirror of the OJS 3.3 package). We detect the OJS line by asking
+// whether the namespaced application core PKP\core\PKPApplication is declared: it
+// exists on OJS 3.4+ (created at bootstrap, before any plugin's index.php is read)
+// and is absent on OJS 3.3, whose core classes are global and non-namespaced.
+//
+// The second argument MUST stay false: with autoload on, a greedy third-party
+// autoloader on a 3.3 site (where this wrong-line branch runs) would resolve the
+// PKP\ name by require()ing a core file and fatally re-declare an already-loaded
+// class ("Cannot declare class ...") in CLI tools such as upgrade.php and
+// installPluginVersion.php. We test PKP\core\PKPApplication rather than
+// PKP\plugins\GenericPlugin because the namespaced GenericPlugin is not yet loaded
+// when this file runs on 3.4/3.5.
+if (!class_exists('PKP\\core\\PKPApplication', false)) {
     // OJS 3.3: wrong package.
     // tara-yoksay: P04 — import() runs only on OJS 3.3 (this wrong-line branch); import() exists there.
     import('lib.pkp.classes.plugins.GenericPlugin');

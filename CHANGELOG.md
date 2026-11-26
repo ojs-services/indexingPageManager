@@ -3,6 +3,18 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.11 — 2026-11-26 (OJS 3.4 + 3.5)
+
+- **Harden the wrong-line guard against a greedy class autoloader.** The check in
+  `index.php` that keeps this package inert on OJS 3.3 now tests
+  `PKP\core\PKPApplication` with autoloading disabled, instead of
+  autoload-triggering `PKP\plugins\GenericPlugin`. If this OJS 3.4/3.5 package is
+  installed on an OJS 3.3 site that has a third-party plugin mapping `PKP\…`
+  names onto core files, the check can no longer ask that autoloader to load a
+  core class and fatally re-declare it ("Cannot declare class …") in OJS
+  command-line tools (`upgrade.php check`, `installPluginVersion.php`). Behaviour
+  on OJS 3.4/3.5 is unchanged: the plugin loads normally.
+
 ## 2.0.0.10 — 2026-11-26 (OJS 3.4 + 3.5)
 
 - **Localized built-in section names and page heading.** The four built-in
