@@ -3,6 +3,12 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.9 — 2026-11-26 (OJS 3.4 + 3.5)
+
+- **Portuguese.** Added European Portuguese (`pt_PT`, plus `pt` for OJS 3.5's
+  locale code) and Brazilian Portuguese (`pt_BR`). The plugin now ships in
+  English, Spanish, Turkish, Arabic, Russian, Ukrainian and Portuguese.
+
 ## 2.0.0.8 — 2026-11-21 (OJS 3.4 + 3.5)
 
 - **Ukrainian translation** contributed by Petro (ejournal.kpi.ua). The plugin now
