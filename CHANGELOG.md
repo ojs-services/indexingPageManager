@@ -3,6 +3,24 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 2.0.0.12 — 2026-11-27 (OJS 3.4 + 3.5)
+
+- **Fix a broken OJS 3.4 → 3.5 upgrade on sites using Portuguese.** The plugin
+  ships both `pt` and `pt_PT` so the right European-Portuguese translation loads
+  on OJS 3.4 (`pt_PT`) and OJS 3.5 (`pt`). Earlier versions seeded the built-in
+  section names in *both* codes, which created a duplicate pair of rows. OJS
+  3.5's locale migration renames `pt_PT` to `pt`, and that rename then collided
+  with the existing `pt` row and aborted the upgrade with a duplicate-entry
+  error. The plugin now seeds only the code the running OJS core uses, and on
+  first load it removes the duplicate rows left by earlier versions, so the
+  upgrade runs cleanly. Display and any names an editor set are unaffected.
+- **English fallback for the plugin's own texts.** In a UI language the plugin
+  has no translation for, its texts now appear in English instead of a raw
+  `##key##`; a language that does have a translation is unchanged, and a key
+  missing from English too still shows `##key##` so it is noticed. Only this
+  plugin's own texts are affected — OJS's and other plugins' texts are not.
+- Added a short Turkish readme (`README_TR.md`).
+
 ## 2.0.0.11 — 2026-11-26 (OJS 3.4 + 3.5)
 
 - **Harden the wrong-line guard against a greedy class autoloader.** The check in

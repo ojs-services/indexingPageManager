@@ -25,8 +25,10 @@ use APP\plugins\generic\indexingPageManager\classes\IpmIndexSectionDAO;
 use APP\plugins\generic\indexingPageManager\classes\IpmLogoStore;
 use APP\plugins\generic\indexingPageManager\classes\IpmSectionDAO;
 use APP\template\TemplateManager;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use PKP\core\PKPApplication;
+use PKP\facades\Locale;
 use PKP\db\DAORegistry;
 use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\RedirectAction;
@@ -94,6 +96,12 @@ class IndexingPageManagerPlugin extends GenericPlugin
     /** Default URL slug under /about/. */
     public const DEFAULT_SLUG = 'databases';
 
+    /** This plugin's locale keys all start with this prefix. */
+    private const LOCALE_PREFIX = 'plugins.generic.indexingPageManager.';
+
+    /** Whether the English fallback hook was already added this request. */
+    private static $_englishFallbackRegistered = false;
+
     public function getDisplayName()
     {
         return __('plugins.generic.indexingPageManager.name');
@@ -113,6 +121,10 @@ class IndexingPageManagerPlugin extends GenericPlugin
 
         $this->_registerDAOs();
 
+        // Register before the enabled check: the plugin name/description show in
+        // the plugin list even while the plugin is off.
+        $this->_registerEnglishFallback();
+
         if ($this->getEnabled($mainContextId)) {
             // OJS 3.3's setEnabled() does NOT fire the Installer hook, so the
             // migration is only triggered by a fresh OJS install. Run it
@@ -123,6 +135,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
                 $this->_runMigrationDirect();
             }
             if ($this->_tablesExist()) {
+                $this->_cleanupRedundantPortuguese($mainContextId);
                 $this->_maybeSeedBuiltIns($mainContextId);
                 $this->_maybeSeedDefaultSettings($mainContextId);
                 // Demo build only: if a `demo-data/` payload ships alongside
@@ -461,7 +474,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
             $existing[$section->getSlug()] = $section;
         }
 
-        $locales = $this->_pluginLocales();
+        $locales = $this->_seedLocales();
 
         foreach (self::BUILT_IN_SECTIONS as $i => $row) {
             $slug = $row['slug'];
@@ -536,6 +549,122 @@ class IndexingPageManagerPlugin extends GenericPlugin
     }
 
     /**
+     * The European-Portuguese UI locale code the running OJS core uses: 'pt_PT'
+     * on OJS 3.4, 'pt' on OJS 3.5+ (Weblate locales). Detected from the core
+     * locale directory so it is correct on both lines; null if neither is found.
+     */
+    private function _ojsPortugueseCode()
+    {
+        static $code = false;
+        if ($code !== false) {
+            return $code;
+        }
+        $root = dirname(__FILE__, 4); // <ojs>/plugins/generic/indexingPageManager/<this file>
+        if (is_dir($root . '/lib/pkp/locale/pt')) {
+            $code = 'pt';        // OJS 3.5+
+        } elseif (is_dir($root . '/lib/pkp/locale/pt_PT')) {
+            $code = 'pt_PT';     // OJS 3.4
+        } else {
+            $code = null;
+        }
+        return $code;
+    }
+
+    /**
+     * Locale codes to SEED database rows for. Same as _pluginLocales(), but the
+     * pt / pt_PT pair is collapsed to the single code the running OJS core uses.
+     * The plugin ships both so the right European-Portuguese translation loads on
+     * OJS 3.4 (pt_PT) and OJS 3.5 (pt); writing BOTH as separate per-locale rows
+     * would create a (object,'pt') + (object,'pt_PT') pair that collides when OJS
+     * 3.5's I9707_WeblateUILocales migration renames pt_PT -> pt (the tables have
+     * a unique object_id/locale/setting_name key, so the rename fails with a
+     * duplicate-entry error and the 3.4 -> 3.5 upgrade breaks). Display is
+     * unaffected: only the code the core actually uses is ever loaded.
+     */
+    private function _seedLocales()
+    {
+        $locales = $this->_pluginLocales();
+        if (in_array('pt', $locales, true) && in_array('pt_PT', $locales, true)) {
+            $keep = $this->_ojsPortugueseCode();
+            if ($keep === 'pt') {
+                $locales = array_values(array_diff($locales, ['pt_PT']));
+            } elseif ($keep === 'pt_PT') {
+                $locales = array_values(array_diff($locales, ['pt']));
+            }
+            // Unknown core: keep both rather than risk dropping the only PT file.
+        }
+        return $locales;
+    }
+
+    /**
+     * One-time cleanup for installs seeded by 2.0.0.9-2.0.0.11, which wrote
+     * built-in names in BOTH pt and pt_PT. Remove the code the running OJS core
+     * does NOT use: it is never a UI locale there, so those rows are only the
+     * seeded duplicate of the code it does use, and removing them lets OJS 3.5's
+     * pt_PT -> pt rename run without colliding. Runs once per context, cheaply,
+     * before seeding.
+     */
+    private function _cleanupRedundantPortuguese($mainContextId = null)
+    {
+        $journalId = $this->_resolveContextId($mainContextId);
+        if (!$journalId) {
+            return;
+        }
+        if ($this->getSetting($journalId, 'ptTwinCleanup')) {
+            return;
+        }
+        $locales = $this->_pluginLocales();
+        if (in_array('pt', $locales, true) && in_array('pt_PT', $locales, true)) {
+            $keep = $this->_ojsPortugueseCode();
+            if ($keep === 'pt' || $keep === 'pt_PT') {
+                $drop = $keep === 'pt' ? 'pt_PT' : 'pt';
+                foreach (['ipm_section_settings', 'ipm_index_settings'] as $table) {
+                    try {
+                        if (Schema::hasTable($table)) {
+                            DB::table($table)->where('locale', $drop)->delete();
+                        }
+                    } catch (\Throwable $e) {
+                        error_log('[indexingPageManager] pt cleanup failed: ' . $e->getMessage());
+                    }
+                }
+            }
+        }
+        $this->updateSetting($journalId, 'ptTwinCleanup', true, 'bool');
+    }
+
+    /**
+     * English fallback for this plugin's own texts. OJS 3.4/3.5 show a raw
+     * ##key## when a UI language has no translation for a key; this makes the
+     * plugin's own keys fall back to English instead (a language that DOES have
+     * a file always wins, and a key missing from English too stays ##key## so a
+     * developer notices). Only keys with this plugin's prefix are touched —
+     * OJS's and other plugins' texts are never affected. No setting.
+     */
+    private function _registerEnglishFallback(): void
+    {
+        if (self::$_englishFallbackRegistered) {
+            return;
+        }
+        self::$_englishFallbackRegistered = true;
+        Hook::add('Locale::translate', function (string $hookName, array $args): bool {
+            $value  = &$args[0];
+            $key    = (string) $args[1];
+            $locale = (string) $args[4];
+            if ($locale === 'en' || strpos($key, self::LOCALE_PREFIX) !== 0) {
+                return Hook::CONTINUE;
+            }
+            $english = $args[3] === null
+                ? Locale::get($key, (array) $args[2], 'en')
+                : Locale::choice($key, (int) $args[3], (array) $args[2], 'en');
+            if (strpos($english, '##') === 0) {
+                return Hook::CONTINUE; // not in English either — leave ##key##
+            }
+            $value = $english;
+            return Hook::ABORT;
+        });
+    }
+
+    /**
      * Read one single-line message straight from the plugin's own
      * locale/<locale>/locale.po, or null if absent. Deliberately file-based
      * (not the Locale facade) so seeding defaults works for every bundled
@@ -569,7 +698,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
     {
         $key = 'plugins.generic.indexingPageManager.builtIn.' . $slug;
         $map = [];
-        foreach ($this->_pluginLocales() as $loc) {
+        foreach ($this->_seedLocales() as $loc) {
             $value = $this->_localePo($loc, $key);
             if ($value !== null) {
                 $map[$loc] = $value;
@@ -593,7 +722,7 @@ class IndexingPageManagerPlugin extends GenericPlugin
     {
         $key = 'plugins.generic.indexingPageManager.frontend.defaultTitle';
         $map = [];
-        foreach ($this->_pluginLocales() as $loc) {
+        foreach ($this->_seedLocales() as $loc) {
             $value = $this->_localePo($loc, $key);
             if ($value !== null) {
                 $map[$loc] = $value;
