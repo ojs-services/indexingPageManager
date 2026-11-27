@@ -12,8 +12,8 @@
 <version>
     <application>indexingPageManager</application>
     <type>plugins.generic</type>
-    <release>1.0.0.7</release>
-    <date>2026-11-26</date>
+    <release>1.0.0.8</release>
+    <date>2026-11-27</date>
     <lazy-load>1</lazy-load>
     <class>IndexingPageManagerPlugin</class>
     <!-- The OJS line this package targets: OJS 3.3 (3.3.0.x). Each <version> is a Composer-style

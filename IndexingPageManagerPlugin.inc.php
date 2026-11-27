@@ -89,6 +89,26 @@ class IndexingPageManagerPlugin extends GenericPlugin
         return __('plugins.generic.indexingPageManager.description');
     }
 
+    /**
+     * English fallback for this plugin's own texts. OJS 3.3 shows a raw ##key##
+     * when a UI language has no translation for a key; putting the English file
+     * FIRST makes the plugin's own keys fall back to English instead. OJS loads
+     * the registered files via addLocaleData() and searches them from the last
+     * one back, so the language's own file still wins and only the keys it lacks
+     * (or every key, when the language has no file at all) come from English.
+     * This plugin's en_US file holds only its own prefixed keys, so OJS core
+     * translations are never touched.
+     */
+    public function getLocaleFilename($locale)
+    {
+        $files = (array) parent::getLocaleFilename($locale);
+        $english = $this->getPluginPath() . '/locale/en_US/locale.po';
+        if ($locale !== 'en_US' && file_exists($english)) {
+            array_unshift($files, $english);
+        }
+        return $files;
+    }
+
     public function register($category, $path, $mainContextId = null)
     {
         $success = parent::register($category, $path, $mainContextId);

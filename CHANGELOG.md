@@ -3,6 +3,15 @@
 All notable changes to this plugin are documented here. Versioning follows the
 plugin's `version.xml` `<release>` value; every shipped change bumps it.
 
+## 1.0.0.8 — 2026-11-27 (OJS 3.3)
+
+- **English fallback for the plugin's own texts.** In a UI language the plugin
+  has no translation for, its texts now appear in English instead of a raw
+  `##key##`; a language that does have a translation is unchanged, and a key
+  missing from English too still shows `##key##` so it is noticed. Only this
+  plugin's own texts are affected — OJS's and other plugins' texts are not.
+- Added a short Turkish readme (`README_TR.md`).
+
 ## 1.0.0.7 — 2026-11-26 (OJS 3.3)
 
 - **Fix a fatal on sites with a greedy class autoloader.** The OJS-line check in
